@@ -6,6 +6,7 @@ import { OrnamentalDivider } from "./OrnamentalDivider";
 import { Clock, Heart } from "lucide-react";
 
 export function WeddingCountdown() {
+  const [mounted, setMounted] = useState(false);
   const [timeLeft, setTimeLeft] = useState<{
     days: number;
     hours: number;
@@ -15,6 +16,7 @@ export function WeddingCountdown() {
   } | null>(null);
 
   useEffect(() => {
+    setMounted(true);
     const targetDate = new Date(weddingData.targetDateTimeISO).getTime();
 
     const calculateTime = () => {
@@ -55,10 +57,10 @@ export function WeddingCountdown() {
   }, []);
 
   const timeUnits = [
-    { label: "Days", value: timeLeft?.days ?? 0 },
-    { label: "Hours", value: timeLeft?.hours ?? 0 },
-    { label: "Minutes", value: timeLeft?.minutes ?? 0 },
-    { label: "Seconds", value: timeLeft?.seconds ?? 0 },
+    { label: "Days", value: mounted && timeLeft ? timeLeft.days : 0 },
+    { label: "Hours", value: mounted && timeLeft ? timeLeft.hours : 0 },
+    { label: "Minutes", value: mounted && timeLeft ? timeLeft.minutes : 0 },
+    { label: "Seconds", value: mounted && timeLeft ? timeLeft.seconds : 0 },
   ];
 
   return (

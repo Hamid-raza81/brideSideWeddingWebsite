@@ -11,6 +11,7 @@ import { FamilySection } from "@/components/FamilySection";
 import { VenueSection } from "@/components/VenueSection";
 import { ShareInvitation } from "@/components/ShareInvitation";
 import { ClosingSection } from "@/components/ClosingSection";
+import { BackgroundMusicPlayer } from "@/components/BackgroundMusicPlayer";
 
 export default function WeddingPage() {
   // Full-screen video shows first when the user lands on the site
@@ -65,6 +66,12 @@ export default function WeddingPage() {
       {/* Closing Sunnah Dua & Family Gratitude */}
       <ClosingSection
         onReplayIntro={handleReplayVideo}
+      />
+
+      {/* Background Music — Plays after video ends */}
+      <BackgroundMusicPlayer
+        autoStart={!isVideoActive}
+        isPausedByVideo={isVideoActive}
       />
     </main>
   );
