@@ -7,6 +7,7 @@ import { WeddingHero } from "@/components/WeddingHero";
 import { WelcomeSection } from "@/components/WelcomeSection";
 import { WeddingEvents } from "@/components/WeddingEvents";
 import { WeddingCountdown } from "@/components/WeddingCountdown";
+import { ScratchToReveal } from "@/components/ScratchToReveal";
 import { FamilySection } from "@/components/FamilySection";
 import { VenueSection } from "@/components/VenueSection";
 import { ShareInvitation } from "@/components/ShareInvitation";
@@ -54,6 +55,9 @@ export default function WeddingPage() {
 
       {/* Live Countdown to Nikah */}
       <WeddingCountdown />
+
+      {/* Interactive Scratch to Reveal Couple Card */}
+      <ScratchToReveal />
 
       {/* Respected Lineage & Family Details */}
       <FamilySection />

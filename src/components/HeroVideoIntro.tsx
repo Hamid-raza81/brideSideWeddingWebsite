@@ -5,7 +5,6 @@ import confetti from "canvas-confetti";
 import { weddingData } from "@/data/wedding";
 import {
   Play,
-  Pause,
   Volume2,
   VolumeX,
   ArrowRight,
@@ -107,15 +106,12 @@ export function HeroVideoIntro({ isActive, onComplete }: HeroVideoIntroProps) {
   };
 
   // Screen tap handler
-  const handleScreenClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleScreenClick = () => {
     // If not started yet, any click/tap starts the video
     if (!hasStartedPlaying) {
       startPlayback();
-      return;
     }
-
-    // If already playing, tapping the screen toggles play/pause
-    togglePlay();
+    // Once started, no pause allowed — plays continuously
   };
 
   // Auto-hide controls after inactivity
@@ -130,19 +126,6 @@ export function HeroVideoIntro({ isActive, onComplete }: HeroVideoIntroProps) {
         setShowControls(false);
       }
     }, 2800);
-  };
-
-  const togglePlay = () => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (video.paused) {
-      video.play();
-      setIsPlaying(true);
-    } else {
-      video.pause();
-      setIsPlaying(false);
-    }
   };
 
   const toggleMute = (e: React.MouseEvent) => {
@@ -165,13 +148,6 @@ export function HeroVideoIntro({ isActive, onComplete }: HeroVideoIntroProps) {
       setIsFadingOut(false);
       setHasStartedPlaying(false);
     }, 500);
-  };
-
-  const formatTime = (seconds: number) => {
-    if (isNaN(seconds)) return "0:00";
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
   if (!isActive) return null;
@@ -282,37 +258,13 @@ export function HeroVideoIntro({ isActive, onComplete }: HeroVideoIntroProps) {
             </button>
           </div>
 
-          {/* Floating Center Pause Indicator (only shown if paused during playback) */}
-          {!isPlaying && (
-            <div className="absolute inset-0 m-auto w-20 h-20 rounded-full bg-[#B58B35]/95 text-[#18281F] flex items-center justify-center shadow-2xl glow-gold pointer-events-none z-30">
-              <Play className="w-9 h-9 fill-[#18281F] text-[#18281F] ml-1.5" />
-            </div>
-          )}
-
-          {/* Bottom Floating Minimal Control Pill */}
+          {/* Bottom Floating Minimal Sound Control (No pause) */}
           <div
             className={`absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-30 flex items-center justify-between text-white transition-opacity duration-300 ${
               showControls ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           >
-            <div className="flex items-center gap-2.5 sm:gap-3 bg-black/65 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-xl">
-              {/* Play / Pause Toggle */}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  togglePlay();
-                }}
-                aria-label={isPlaying ? "Pause" : "Play"}
-                className="p-1 rounded-full hover:bg-white/10 text-[#E5C365] transition-colors"
-              >
-                {isPlaying ? (
-                  <Pause className="w-4 h-4 sm:w-5 sm:h-5" />
-                ) : (
-                  <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-[#E5C365]" />
-                )}
-              </button>
-
+            <div className="flex items-center gap-2 bg-black/65 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-xl">
               {/* Sound Toggle */}
               <button
                 type="button"
