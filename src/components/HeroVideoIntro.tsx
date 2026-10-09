@@ -14,13 +14,21 @@ import {
 interface HeroVideoIntroProps {
   isActive: boolean;
   onComplete: () => void;
+  onStartMusic?: () => void;
+  isMusicPlaying?: boolean;
+  onToggleMusic?: () => void;
 }
 
-export function HeroVideoIntro({ isActive, onComplete }: HeroVideoIntroProps) {
+export function HeroVideoIntro({
+  isActive,
+  onComplete,
+  onStartMusic,
+  isMusicPlaying = false,
+  onToggleMusic,
+}: HeroVideoIntroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasStartedPlaying, setHasStartedPlaying] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(10);
   const [isFadingOut, setIsFadingOut] = useState(false);
@@ -81,33 +89,24 @@ export function HeroVideoIntro({ isActive, onComplete }: HeroVideoIntroProps) {
 
     setHasStartedPlaying(true);
     video.currentTime = 0;
-    video.muted = false;
-    video.volume = 1.0;
+    video.muted = true; // Video's own entrance audio is removed/muted
 
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          setIsPlaying(true);
-          setIsMuted(false);
-        })
-        .catch(() => {
-          // If browser restricts audio on specific mobile policy, fallback to muted play
-          video.muted = true;
-          setIsMuted(true);
-          video
-            .play()
-            .then(() => setIsPlaying(true))
-            .catch(() => {
-              setIsPlaying(false);
-            });
-        });
-    }
+    video
+      .play()
+      .then(() => {
+        setIsPlaying(true);
+      })
+      .catch(() => {
+        setIsPlaying(false);
+      });
+
+    // Start full landing page wedding song from first tap
+    onStartMusic?.();
   };
 
   // Screen tap handler
   const handleScreenClick = () => {
-    // If not started yet, any click/tap starts the video
+    // If not started yet, any click/tap starts the video & wedding song
     if (!hasStartedPlaying) {
       startPlayback();
     }
@@ -130,11 +129,7 @@ export function HeroVideoIntro({ isActive, onComplete }: HeroVideoIntroProps) {
 
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const video = videoRef.current;
-    if (!video) return;
-
-    video.muted = !video.muted;
-    setIsMuted(video.muted);
+    onToggleMusic?.();
   };
 
   const handleSkip = (e: React.MouseEvent) => {
@@ -165,12 +160,13 @@ export function HeroVideoIntro({ isActive, onComplete }: HeroVideoIntroProps) {
         isFadingOut ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
-      {/* 100% Full-Screen Edge-to-Edge Video — Fully mobile responsive */}
+      {/* 100% Full-Screen Edge-to-Edge Video — Video muted, entrance song replaced by full wedding song */}
       <video
         ref={videoRef}
         src="/images/gemini_generated_video_03cf4159.mp4"
         playsInline
         preload="auto"
+        muted
         onTimeUpdate={() => {
           if (videoRef.current) {
             setCurrentTime(videoRef.current.currentTime);
@@ -233,7 +229,7 @@ export function HeroVideoIntro({ isActive, onComplete }: HeroVideoIntroProps) {
           {/* Bottom hint */}
           <div className="w-full text-center">
             <p className="text-[10px] sm:text-xs font-serif text-white/70 tracking-widest uppercase">
-              Audio will play · Touch anywhere on screen
+              Music will play · Touch anywhere on screen
             </p>
           </div>
         </div>
@@ -258,7 +254,7 @@ export function HeroVideoIntro({ isActive, onComplete }: HeroVideoIntroProps) {
             </button>
           </div>
 
-          {/* Bottom Floating Minimal Sound Control (No pause) */}
+          {/* Bottom Floating Minimal Sound Control (controls wedding background music) */}
           <div
             className={`absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-30 flex items-center justify-between text-white transition-opacity duration-300 ${
               showControls ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -269,10 +265,10 @@ export function HeroVideoIntro({ isActive, onComplete }: HeroVideoIntroProps) {
               <button
                 type="button"
                 onClick={toggleMute}
-                aria-label={isMuted ? "Unmute" : "Mute"}
-                className="p-1 rounded-full hover:bg-white/10 text-[#E5C365] transition-colors"
+                aria-label={isMusicPlaying ? "Mute music" : "Play music"}
+                className="p-1 rounded-full hover:bg-white/10 text-[#E5C365] transition-colors cursor-pointer"
               >
-                {isMuted ? (
+                {!isMusicPlaying ? (
                   <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-red-400" />
                 ) : (
                   <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />

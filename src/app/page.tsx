@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { HeroVideoIntro } from "@/components/HeroVideoIntro";
 import { SiteNavigation } from "@/components/SiteNavigation";
 import { WeddingHero } from "@/components/WeddingHero";
@@ -19,9 +19,47 @@ export default function WeddingPage() {
   // Full-screen video shows first when the user lands on the site
   const [isVideoActive, setIsVideoActive] = useState(true);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Start the full wedding song from the very first tap/interaction
+  const handleStartMusic = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio
+      .play()
+      .then(() => {
+        setIsMusicPlaying(true);
+      })
+      .catch(() => {
+        setIsMusicPlaying(false);
+      });
+  };
+
+  // Toggle music playback
+  const handleToggleMusic = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isMusicPlaying) {
+      audio.pause();
+      setIsMusicPlaying(false);
+    } else {
+      audio
+        .play()
+        .then(() => {
+          setIsMusicPlaying(true);
+        })
+        .catch(() => {
+          setIsMusicPlaying(false);
+        });
+    }
+  };
 
   const handleVideoComplete = () => {
     setIsVideoActive(false);
+    // Song continues seamlessly into the page!
   };
 
   const handleReplayVideo = () => {
@@ -30,10 +68,21 @@ export default function WeddingPage() {
 
   return (
     <main className="min-h-screen bg-[#F8F3E8] relative selection:bg-[#B58B35]/20 selection:text-[#243A2D]">
-      {/* Full-Screen Video Presentation — Shows first before page content */}
+      {/* Background Wedding Music Audio Element — Plays seamlessly throughout */}
+      <audio
+        ref={audioRef}
+        src="/audio/wedding-bg-music.mp3"
+        loop
+        preload="auto"
+      />
+
+      {/* Full-Screen Video Presentation — Video muted, entrance song replaced by full wedding song */}
       <HeroVideoIntro
         isActive={isVideoActive}
         onComplete={handleVideoComplete}
+        onStartMusic={handleStartMusic}
+        isMusicPlaying={isMusicPlaying}
+        onToggleMusic={handleToggleMusic}
       />
 
       {/* Dreamy Falling Snow & Gold Petal Rain Effect */}
@@ -76,10 +125,11 @@ export default function WeddingPage() {
         onReplayIntro={handleReplayVideo}
       />
 
-      {/* Background Music — Plays after video ends */}
+      {/* Floating Background Music Player Pill — Shows after entering suite, controls the ongoing song */}
       <BackgroundMusicPlayer
-        autoStart={!isVideoActive}
-        isPausedByVideo={isVideoActive}
+        isPlaying={isMusicPlaying}
+        onToggleMusic={handleToggleMusic}
+        showFloatingButton={!isVideoActive}
       />
     </main>
   );
