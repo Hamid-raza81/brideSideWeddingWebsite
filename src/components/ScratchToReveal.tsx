@@ -278,42 +278,36 @@ export function ScratchToReveal() {
             }}
           >
             {/* UNDERNEATH LAYER: The Revealed Couple's Names */}
-            <div className="absolute inset-0 bg-[#FDFBF7] flex flex-col items-center justify-center px-4 pt-10 pb-6 text-center">
-              <div className="flex flex-col items-center justify-center max-w-[270px]">
+            <div className="absolute inset-0 bg-[#FDFBF7] flex flex-col items-center justify-center px-4 pt-8 pb-6 text-center">
+              <div className="flex flex-col items-center justify-center max-w-[260px]">
                 {/* Decorative crown / sparkle */}
                 <div className="inline-flex items-center justify-center text-[#B58B35] mb-1">
                   <Sparkles className="w-4 h-4 text-[#B58B35] animate-pulse" />
                 </div>
 
-                <span className="font-serif text-[10px] tracking-[0.25em] text-[#8C7031] uppercase font-bold">
+                <span className="font-serif text-[10px] sm:text-[11px] tracking-[0.25em] text-[#8C7031] uppercase font-bold mb-1">
                   The Blessed Couple
                 </span>
 
                 {/* Bride's Name */}
-                <h3 className="font-display text-xl sm:text-2xl font-bold text-[#1E3025] mt-1 tracking-tight leading-tight">
-                  {weddingData.bride.fullName}
+                <h3 className="font-display text-2xl sm:text-3xl font-bold text-[#1E3025] tracking-tight leading-none">
+                  Madeeha
                 </h3>
-                <span className="text-[10px] font-serif text-[#706B5F] tracking-wider">
-                  {weddingData.bride.qualifications}
-                </span>
 
                 {/* Elegant Ampersand Divider */}
                 <div className="flex items-center justify-center gap-2 my-1 text-[#B58B35]">
-                  <span className="h-[1px] w-6 bg-[#B58B35]/50" />
-                  <span className="font-script text-2xl text-[#8C7031] leading-none">&amp;</span>
-                  <span className="h-[1px] w-6 bg-[#B58B35]/50" />
+                  <span className="h-[1px] w-8 bg-[#B58B35]/50" />
+                  <span className="font-script text-3xl text-[#8C7031] leading-none">&amp;</span>
+                  <span className="h-[1px] w-8 bg-[#B58B35]/50" />
                 </div>
 
                 {/* Groom's Name */}
-                <h4 className="font-display text-lg sm:text-[21px] font-bold text-[#1E3025] tracking-tight leading-tight">
-                  {weddingData.groom.fullName}
+                <h4 className="font-display text-2xl sm:text-3xl font-bold text-[#1E3025] tracking-tight leading-none">
+                  Ameenuddin
                 </h4>
-                <span className="text-[10px] font-serif text-[#706B5F] tracking-wider">
-                  {weddingData.groom.qualifications}
-                </span>
 
                 {/* Dates & City */}
-                <p className="font-serif text-[10px] sm:text-[11px] text-[#554C3E] mt-2 font-medium tracking-wide">
+                <p className="font-serif text-[11px] sm:text-xs text-[#554C3E] mt-3 font-medium tracking-wide">
                   18 &amp; 19 October 2026 · Ballari
                 </p>
               </div>
@@ -353,7 +347,7 @@ export function ScratchToReveal() {
             <div className="flex flex-col items-center gap-2 animate-fade-in">
               <div className="inline-flex items-center gap-2 text-xs font-serif font-bold text-[#1E3025] bg-[#E8DEC8] px-4 py-1.5 rounded-full border border-[#B58B35]/60 shadow-xs">
                 <Sparkles className="w-3.5 h-3.5 text-[#B58B35]" />
-                <span>Madeeha Nikhath &amp; Mohammed Ameenuddin Ashrafi</span>
+                <span>Madeeha &amp; Ameenuddin</span>
               </div>
               <button
                 type="button"
