@@ -32,7 +32,7 @@ export function WeddingEvents() {
         : "20261019T080000Z/20261019T120000Z";
 
     const title = encodeURIComponent(
-      `${event.name} — Madeeha Nikhath & Mohammed Ameenuddin Ashrafi`
+      `${event.name} — Madeeha Nikhat & Mohammed Ameenuddin Ashrafi`
     );
     const details = encodeURIComponent(
       `${event.name}\nDate: ${event.date}\nTime: ${event.time}\n${

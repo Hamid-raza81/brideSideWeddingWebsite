@@ -47,11 +47,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "https://ameenuddin-weds-madeeha.wedding"
   ),
-  title: "Madeeha Nikhath & Mohammed Ameenuddin Ashrafi — Wedding Invitation",
+  title: "Madeeha Nikhat & Mohammed Ameenuddin Ashrafi — Wedding Invitation",
   description:
     "A wedding invitation for the Mehfil-e-Nikah on 18 October 2026 and Dawat-e-Valima on 19 October 2026 in Ballari, Karnataka.",
   openGraph: {
-    title: "Madeeha Nikhath & Mohammed Ameenuddin Ashrafi — Wedding Invitation",
+    title: "Madeeha Nikhat & Mohammed Ameenuddin Ashrafi — Wedding Invitation",
     description:
       "A wedding invitation for the Mehfil-e-Nikah on 18 October 2026 and Dawat-e-Valima on 19 October 2026 in Ballari, Karnataka.",
     images: [
@@ -59,14 +59,14 @@ export const metadata: Metadata = {
         url: "/images/wedding-artwork.png",
         width: 1200,
         height: 800,
-        alt: "Wedding Invitation - Madeeha Nikhath & Mohammed Ameenuddin Ashrafi",
+        alt: "Wedding Invitation - Madeeha Nikhat & Mohammed Ameenuddin Ashrafi",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Madeeha Nikhath & Mohammed Ameenuddin Ashrafi — Wedding Invitation",
+    title: "Madeeha Nikhat & Mohammed Ameenuddin Ashrafi — Wedding Invitation",
     description:
       "Mehfil-e-Nikah: 18 October 2026 | Dawat-e-Valima: 19 October 2026 | Ballari, Karnataka",
     images: ["/images/wedding-artwork.png"],

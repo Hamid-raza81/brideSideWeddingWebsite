@@ -88,7 +88,7 @@ export const weddingData: WeddingData = {
   bismillahArabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
   bismillahEnglish: "In the name of Allah, the Most Beneficent, the Most Merciful",
   bride: {
-    fullName: "Madeeha Nikhath",
+    fullName: "Madeeha Nikhat",
     qualifications: "M.Sc., B.Ed.",
     shortName: "Madeeha",
   },
@@ -105,7 +105,7 @@ export const weddingData: WeddingData = {
   mainInvitationMessage: {
     heading: "Wedding Invitation",
     invitationBy: "Mrs. Late Mohammed Ghouse Sab.",
-    body: "cordially solicits your gracious presence and blessings on the auspicious occasion of the marriage of her granddaughter, Madeeha Nikhath, with Mohammed Ameenuddin Ashrafi.",
+    body: "cordially solicits your gracious presence and blessings on the auspicious occasion of the marriage of her granddaughter, Madeeha Nikhat, with Mohammed Ameenuddin Ashrafi.",
     eventInvite: "With the blessings of Allah and our families, we invite you to join us for the Mehfil-e-Nikah and Dawat-e-Valima.",
   },
   events: [
@@ -149,7 +149,7 @@ export const weddingData: WeddingData = {
     bride: {
       side: "bride",
       title: "Bride's Family",
-      candidateName: "Madeeha Nikhath",
+      candidateName: "Madeeha Nikhat",
       qualifications: "M.Sc., B.Ed.",
       relationshipTitle: "Granddaughter of Late Mohammed Ghouse Sab.",
       fatherInfo: "Daughter of Imtiaz (Lorry Owner, Ballari)",
@@ -177,9 +177,9 @@ export const weddingData: WeddingData = {
     sbtFamilyCompliments: "With Best Compliments: SBT Family",
   },
   shareDetails: {
-    title: "Wedding Invitation — Madeeha Nikhath & Mohammed Ameenuddin Ashrafi",
+    title: "Wedding Invitation — Madeeha Nikhat & Mohammed Ameenuddin Ashrafi",
     messageText:
-      "Wedding Invitation — Madeeha Nikhath & Mohammed Ameenuddin Ashrafi\n\nMehfil-e-Nikah: 18 October 2026 at 12:30 PM, M.R.K Function Hall, near ITI College, Cantonment, Ballari.\n\nDawat-e-Valima: 19 October 2026 at 1:30 PM, Karnataka Function Hall, 4th Railway Gate, Hospet Road, Cantonment, Ballari.\n\nWe warmly invite you to join us and bless the couple.",
+      "Wedding Invitation — Madeeha Nikhat & Mohammed Ameenuddin Ashrafi\n\nMehfil-e-Nikah: 18 October 2026 at 12:30 PM, M.R.K Function Hall, near ITI College, Cantonment, Ballari.\n\nDawat-e-Valima: 19 October 2026 at 1:30 PM, Karnataka Function Hall, 4th Railway Gate, Hospet Road, Cantonment, Ballari.\n\nWe warmly invite you to join us and bless the couple.",
   },
   qrCode: {
     imageSrc: "/images/invitation-qr.png",

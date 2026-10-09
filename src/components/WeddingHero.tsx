@@ -74,7 +74,7 @@ export function WeddingHero({ onOpenVideo }: WeddingHeroProps) {
             <div className="relative rounded-2xl overflow-hidden border border-[#B58B35]/50 bg-white aspect-[3/2] shadow-inner">
               <Image
                 src="/images/wedding-artwork.png"
-                alt="Madeeha Nikhath & Mohammed Ameenuddin Ashrafi Illustrated Wedding Artwork"
+                alt="Madeeha Nikhat & Mohammed Ameenuddin Ashrafi Illustrated Wedding Artwork"
                 fill
                 priority
                 sizes="(max-width: 640px) 90vw, (max-width: 1024px) 500px, 600px"
