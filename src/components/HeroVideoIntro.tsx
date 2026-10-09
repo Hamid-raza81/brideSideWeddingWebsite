@@ -326,11 +326,6 @@ export function HeroVideoIntro({ isActive, onComplete }: HeroVideoIntroProps) {
                   <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />
                 )}
               </button>
-
-              {/* Timer Display */}
-              <span className="text-[11px] sm:text-xs text-gray-300 font-serif tracking-wider ml-1">
-                {formatTime(currentTime)} / {formatTime(duration || 10)}
-              </span>
             </div>
           </div>
 

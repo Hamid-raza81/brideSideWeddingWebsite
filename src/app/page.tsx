@@ -12,6 +12,7 @@ import { VenueSection } from "@/components/VenueSection";
 import { ShareInvitation } from "@/components/ShareInvitation";
 import { ClosingSection } from "@/components/ClosingSection";
 import { BackgroundMusicPlayer } from "@/components/BackgroundMusicPlayer";
+import { FallingRainParticles } from "@/components/FallingRainParticles";
 
 export default function WeddingPage() {
   // Full-screen video shows first when the user lands on the site
@@ -33,6 +34,9 @@ export default function WeddingPage() {
         isActive={isVideoActive}
         onComplete={handleVideoComplete}
       />
+
+      {/* Dreamy Falling Snow & Gold Petal Rain Effect */}
+      <FallingRainParticles />
 
       {/* Main Site Header Navigation */}
       <SiteNavigation
