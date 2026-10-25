@@ -1,18 +1,24 @@
+/**
+ * Reuse this invitation by updating the client configuration below and the
+ * gallery entries at the end of this file. Put replacement assets in
+ * public/images/ and point the asset fields and gallery entries at /images/... paths.
+ */
 export interface WeddingEvent {
   id: string;
   name: string;
   subTitle: string;
   date: string;
   dateISO: string;
-  islamicDate: string;
   time: string;
-  lunchDetail?: string;
+  timeISO?: string;
+  mealDetail?: string;
   venue: string;
-  address: string;
-  city: string;
-  state: string;
-  country: string;
-  mapsSearchUrl: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  mapsSearchUrl?: string;
+  mapsEmbedUrl?: string;
   badge: string;
 }
 
@@ -20,7 +26,6 @@ export interface FamilySide {
   side: "bride" | "groom";
   title: string;
   candidateName: string;
-  qualifications: string;
   relationshipTitle: string;
   fatherInfo: string;
   additionalInfo: string;
@@ -41,22 +46,28 @@ export interface WeddingData {
   bismillahEnglish: string;
   bride: {
     fullName: string;
-    qualifications: string;
     shortName: string;
   };
   groom: {
     fullName: string;
-    qualifications: string;
     shortName: string;
   };
   monogram: string;
+  assets: {
+    heroImageSrc: string;
+    introVideoSrc: string;
+    backgroundMusicSrc: string;
+  };
+  seo: {
+    description: string;
+  };
   dateSummary: string;
-  islamicDateSummary: string;
   locationSummary: string;
-  targetDateTimeISO: string; // Nikah target in IST: 2026-10-18T12:30:00+05:30
+  timezoneLabel: string;
   mainInvitationMessage: {
     heading: string;
     invitationBy: string;
+    hostAddress: string;
     body: string;
     eventInvite: string;
   };
@@ -71,141 +82,201 @@ export interface WeddingData {
     duaTranslation: string;
     message: string;
     compliments: string;
-    sbtFamilyCompliments: string;
   };
   shareDetails: {
     title: string;
+    closingMessage: string;
     messageText: string;
   };
   qrCode: {
-    imageSrc: string;
     title: string;
     caption: string;
   };
+  gallery: {
+    heading: string;
+    description: string;
+  };
+  footer: {
+    businessName: string;
+    phoneDisplay: string;
+    phoneHref: string;
+  };
 }
 
+const brideDetails = {
+  fullName: "Sania Raza",
+  shortName: "Sania",
+};
+const groomDetails = {
+  fullName: "Aftab Alam",
+  shortName: "Aftab",
+};
+const familyDetails = {
+  brideFather: "Md Aslam Ansari",
+  brideMother: "Shabana Khatoon",
+  groomFather: "Md Salim Ansari",
+};
+const residenceAddress = "Road No. 13, Zakirnagar, Mango, Jamshedpur, Jharkhand";
+const venueName = "Grand Markaz Banquet Hall";
+const venueAddress = "2, Old Purulia Road, Zakir Nagar, Mango";
+const venueCity = "Jamshedpur";
+const venueState = "Jharkhand";
+const venueCountry = "India";
+const venueMapUrl =
+  "https://www.google.com/maps/search/?api=1&query=Grand+Markaz+Banquet+Hall%2C+Mango%2C+Jamshedpur";
+const venueMapEmbedUrl =
+  "https://www.google.com/maps?q=Grand%20Markaz%20Banquet%20Hall%2C%202%20Old%20Purulia%20Road%2C%20Zakir%20Nagar%2C%20Mango%2C%20Jamshedpur%2C%20Jharkhand%20831012&output=embed";
+
+// Main client configuration: edit names, artwork, media, location, and dates here.
 export const weddingData: WeddingData = {
   bismillahArabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
-  bismillahEnglish: "In the name of Allah, the Most Beneficent, the Most Merciful",
-  bride: {
-    fullName: "Madeeha Nikhat",
-    qualifications: "M.Sc., B.Ed.",
-    shortName: "Madeeha",
+  bismillahEnglish:
+    "In the name of Allah, the Most Beneficent, the Most Merciful",
+  bride: brideDetails,
+  groom: groomDetails,
+  monogram: `${brideDetails.shortName[0]} & ${groomDetails.shortName[0]}`,
+  assets: {
+    heroImageSrc: "/images/sania-aftab-hero.png",
+    introVideoSrc: "/images/gemini_generated_video_03cf4159.mp4",
+    backgroundMusicSrc: "/audio/wedding-bg-music.mp3",
   },
-  groom: {
-    fullName: "Mohammed Ameenuddin Ashrafi",
-    qualifications: "B.Com., C.A.",
-    shortName: "Ameenuddin",
+  seo: {
+    description: `Join ${brideDetails.fullName} with ${groomDetails.fullName} for wedding celebrations on 06, 07, and 08 December 2026 in ${venueCity}, ${venueState}.`,
   },
-  monogram: "A & M",
-  dateSummary: "18 October 2026",
-  islamicDateSummary: "6th Jamadi-ul-Awwal 1448 Hijri",
-  locationSummary: "Ballari, Karnataka",
-  targetDateTimeISO: "2026-10-18T12:30:00+05:30",
+  dateSummary: "08 December 2026",
+  locationSummary: "Jamshedpur, Jharkhand, India",
+  timezoneLabel: "Indian Standard Time (IST)",
   mainInvitationMessage: {
     heading: "Wedding Invitation",
-    invitationBy: "Mrs. Late Mohammed Ghouse Sab.",
-    body: "cordially solicits your gracious presence and blessings on the auspicious occasion of the marriage of her granddaughter, Madeeha Nikhat, with Mohammed Ameenuddin Ashrafi.",
-    eventInvite: "With the blessings of Allah and our families, we invite you to join us for the Mehfil-e-Nikah and Dawat-e-Valima.",
+    invitationBy: `Mr. ${familyDetails.brideFather} & Mrs. ${familyDetails.brideMother}`,
+    hostAddress: residenceAddress,
+    body: `cordially invite you to share in the wedding celebrations of their daughter, ${brideDetails.fullName}, with ${groomDetails.fullName}.`,
+    eventInvite:
+      "With the blessings of Allah and our families, we invite you to join us for the Haldi, Mehndi, Nikah, and dinner.",
   },
   events: [
+    {
+      id: "haldi",
+      name: "Haldi Ceremony",
+      subTitle: "A joyful beginning to the celebrations",
+      date: "Sunday, 06 December 2026",
+      dateISO: "2026-12-06",
+      time: "4:00 PM",
+      timeISO: "2026-12-06T16:00:00+05:30",
+      venue: "Our Residence",
+      address: residenceAddress,
+      badge: "Haldi",
+    },
+    {
+      id: "mehndi",
+      name: "Mehndi Ceremony",
+      subTitle: "An evening of color and celebration",
+      date: "Monday, 07 December 2026",
+      dateISO: "2026-12-07",
+      time: "7:00 PM",
+      timeISO: "2026-12-07T19:00:00+05:30",
+      venue: "Our Residence",
+      address: residenceAddress,
+      badge: "Mehndi",
+    },
     {
       id: "nikah",
       name: "Mehfil-e-Nikah",
       subTitle: "The Sacred Marriage Ceremony",
-      date: "Sunday, 18 October 2026",
-      dateISO: "2026-10-18",
-      islamicDate: "6th Jamadi-ul-Awwal 1448 Hijri (Inshallaha)",
+      date: "Tuesday, 08 December 2026",
+      dateISO: "2026-12-08",
       time: "12:30 PM",
-      lunchDetail: "Lunch: Thereafter",
-      venue: "M.R.K Function Hall",
-      address: "Near ITI College, Cantonment",
-      city: "Ballari",
-      state: "Karnataka",
-      country: "India",
-      mapsSearchUrl:
-        "https://www.google.com/maps/search/?api=1&query=M.R.K+Function+Hall+Near+ITI+College+Cantonment+Ballari+Karnataka+India",
+      timeISO: "2026-12-08T12:30:00+05:30",
+      venue: venueName,
+      address: venueAddress,
+      city: venueCity,
+      state: venueState,
+      country: venueCountry,
+      mapsSearchUrl: venueMapUrl,
+      mapsEmbedUrl: venueMapEmbedUrl,
       badge: "Nikah Ceremony",
     },
     {
-      id: "valima",
-      name: "Dawat-e-Valima",
-      subTitle: "The Joyful Reception",
-      date: "Monday, 19 October 2026",
-      dateISO: "2026-10-19",
-      islamicDate: "7th Jamadi-ul-Awwal 1448 Hijri",
-      time: "1:30 PM",
-      venue: "Karnataka Function Hall",
-      address: "4th Railway Gate, Hospet Road, Cantonment",
-      city: "Ballari",
-      state: "Karnataka",
-      country: "India",
-      mapsSearchUrl:
-        "https://www.google.com/maps/search/?api=1&query=Karnataka+Function+Hall+4th+Railway+Gate+Hospet+Road+Cantonment+Ballari+Karnataka+India",
-      badge: "Valima Reception",
+      id: "dinner",
+      name: "Dinner",
+      subTitle: "Dinner following the Nikah celebration",
+      date: "Tuesday, 08 December 2026",
+      dateISO: "2026-12-08",
+      time: "8:00 PM",
+      timeISO: "2026-12-08T20:00:00+05:30",
+      venue: venueName,
+      address: venueAddress,
+      city: venueCity,
+      state: venueState,
+      country: venueCountry,
+      mapsSearchUrl: venueMapUrl,
+      badge: "Dinner",
     },
   ],
   families: {
     bride: {
       side: "bride",
       title: "Bride's Family",
-      candidateName: "Madeeha Nikhat",
-      qualifications: "M.Sc., B.Ed.",
-      relationshipTitle: "Granddaughter of Late Mohammed Ghouse Sab.",
-      fatherInfo: "Daughter of Imtiaz (Lorry Owner, Ballari)",
+      candidateName: brideDetails.fullName,
+      relationshipTitle: `Daughter of ${familyDetails.brideFather}`,
+      fatherInfo: `Daughter of ${familyDetails.brideFather} (${venueCity})`,
       additionalInfo: "Grand youngest daughter of the family",
-      issuedBy: "Invitation cordially extended by Mrs. Late Mohammed Ghouse Sab.",
+      issuedBy: `Invitation extended by ${familyDetails.brideFather} & family.`,
     },
     groom: {
       side: "groom",
       title: "Groom's Family",
-      candidateName: "Mohammed Ameenuddin Ashrafi",
-      qualifications: "B.Com., C.A.",
-      relationshipTitle: "Son of Alhaj Shamsfuddin Ashrafi",
-      fatherInfo: "Retired Sorting Postman, Head Post Office, Ballari",
-      additionalInfo: "Residing in Ballari, Karnataka",
+      candidateName: groomDetails.fullName,
+      relationshipTitle: `Son of ${familyDetails.groomFather}`,
+      fatherInfo: `T.O.P., ${venueCity}, ${venueState}`,
+      additionalInfo: `T.O.P., ${venueCity}, ${venueState}`,
     },
   },
   closing: {
     title: "With Heartfelt Gratitude & Duas",
-    duaArabic: "بَارَكَ اللَّهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ",
+    duaArabic:
+      "بَارَكَ اللَّهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ",
     duaTranslation:
       "“May Allah bless you, shower His blessings upon you, and unite you both in goodness.”",
     message:
       "Thank you for being part of our celebration. Your presence and duas mean so much to our families. May Allah bless this union with love, mercy, peace, and barakah.",
     compliments: "With best compliments from Relatives & Friends",
-    sbtFamilyCompliments: "With Best Compliments: SBT Family",
   },
   shareDetails: {
-    title: "Wedding Invitation — Madeeha Nikhat & Mohammed Ameenuddin Ashrafi",
-    messageText:
-      "Wedding Invitation — Madeeha Nikhat & Mohammed Ameenuddin Ashrafi\n\nMehfil-e-Nikah: 18 October 2026 at 12:30 PM, M.R.K Function Hall, near ITI College, Cantonment, Ballari.\n\nDawat-e-Valima: 19 October 2026 at 1:30 PM, Karnataka Function Hall, 4th Railway Gate, Hospet Road, Cantonment, Ballari.\n\nWe warmly invite you to join us and bless the couple.",
+    title: `Wedding Invitation — ${brideDetails.fullName} & ${groomDetails.fullName}`,
+    closingMessage: "Your presence will make our wedding shine brighter.",
+    messageText: `Assalamu Alaikum! You are warmly invited to celebrate ${brideDetails.fullName} with ${groomDetails.fullName}.`,
   },
   qrCode: {
-    imageSrc: "/images/invitation-qr.png",
-    title: "Digital Invitation QR Code",
-    caption:
-      "Supplied wedding invitation QR code. Scan with your camera or QR reader to view.",
+    title: `${venueName} Google Maps QR`,
+    caption: `Scan to open ${venueName} in Google Maps.`,
+  },
+  gallery: {
+    heading: `${venueName} Gallery`,
+    description: `Explore two views of ${venueName}. Tap a photo to view it in full size.`,
+  },
+  footer: {
+    businessName: "HR softwaresSolutions",
+    phoneDisplay: "6207003180",
+    phoneHref: "tel:+916207003180",
   },
 };
 
 export const galleryItems: GalleryItem[] = [
   {
-    id: "wedding-artwork",
-    title: "Wedding Floral Artwork",
-    caption:
-      "Commemorative illustrated wedding artwork of Ameenuddin & Madeeha with pink floral wreath and royal crest.",
-    src: "/images/wedding-artwork.png",
-    alt: "Ameenuddin weds Madeeha illustrated wedding artwork",
-    tag: "Artwork",
+    id: "venue-exterior",
+    title: `${venueName} by Night`,
+    caption: `The illuminated exterior entrance of ${venueName}.`,
+    src: "https://content.jdmagicbox.com/comp/jamshedpur/v1/0657px657.x657.191207071503.t6v1/catalogue/grand-markaz-banquet-jamshedpur-0yjgk6nfx9.jpg",
+    alt: `Illuminated ${venueName} exterior in ${venueCity}`,
+    tag: "Venue",
   },
   {
-    id: "printed-invitation",
-    title: "Official Printed Invitation",
-    caption:
-      "The physical wedding invitation card featuring laser-cut SBT Family filigree cover and royal ivory insert.",
-    src: "/images/printed-invitation.jpg",
-    alt: "Photograph of physical printed wedding invitation card",
-    tag: "Physical Card",
+    id: "venue-aisle",
+    title: "Wedding Aisle",
+    caption: `A decorated aisle inside ${venueName}.`,
+    src: "https://content.jdmagicbox.com/comp/jamshedpur/v1/0657px657.x657.191207071503.t6v1/catalogue/grand-markaz-banquet-mango-jamshedpur-banquet-halls-ut5zpy22k1.jpg",
+    alt: `Wedding aisle with decorated arches at ${venueName}`,
+    tag: "Venue",
   },
 ];

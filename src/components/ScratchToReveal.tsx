@@ -2,7 +2,6 @@
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import confetti from "canvas-confetti";
-import { weddingData } from "@/data/wedding";
 import { Sparkles, RotateCcw, Hand } from "lucide-react";
 
 export function ScratchToReveal() {
@@ -250,11 +249,11 @@ export function ScratchToReveal() {
         </div>
 
         <p className="font-serif italic text-xs sm:text-sm text-[#4E4437] mb-7 max-w-xs sm:max-w-md">
-          Gently scratch or swipe the sparkling sage heart to uncover the bride &amp; groom
+          Scratch the sparkling heart to reveal a little message from us
         </p>
 
         {/* Scratch Card Heart Wrapper with SVG outline and drop shadow */}
-        <div className="relative w-[340px] sm:w-[360px] h-[300px] sm:h-[320px] mx-auto select-none">
+        <div className="relative w-[min(340px,90vw)] sm:w-[360px] h-[min(300px,79.5vw)] sm:h-[320px] mx-auto select-none">
           {/* SVG Heart Border & Shadow Frame */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none z-20 drop-shadow-lg"
@@ -277,38 +276,20 @@ export function ScratchToReveal() {
               WebkitClipPath: "url(#scratch-heart-clip)",
             }}
           >
-            {/* UNDERNEATH LAYER: The Revealed Couple's Names */}
+            {/* UNDERNEATH LAYER: A personal note for the guests */}
             <div className="absolute inset-0 bg-[#FDFBF7] flex flex-col items-center justify-center px-4 pt-8 pb-6 text-center">
-              <div className="flex flex-col items-center justify-center max-w-[260px]">
+              <div className="flex flex-col items-center justify-center max-w-[250px]">
                 {/* Decorative crown / sparkle */}
                 <div className="inline-flex items-center justify-center text-[#B58B35] mb-1">
                   <Sparkles className="w-4 h-4 text-[#B58B35] animate-pulse" />
                 </div>
 
                 <span className="font-serif text-[10px] sm:text-[11px] tracking-[0.25em] text-[#8C7031] uppercase font-bold mb-1">
-                  The Blessed Couple
+                  A Note for You
                 </span>
 
-                {/* Bride's Name */}
-                <h3 className="font-display text-2xl sm:text-3xl font-bold text-[#1E3025] tracking-tight leading-none">
-                  Madeeha
-                </h3>
-
-                {/* Elegant Ampersand Divider */}
-                <div className="flex items-center justify-center gap-2 my-1 text-[#B58B35]">
-                  <span className="h-[1px] w-8 bg-[#B58B35]/50" />
-                  <span className="font-script text-3xl text-[#8C7031] leading-none">&amp;</span>
-                  <span className="h-[1px] w-8 bg-[#B58B35]/50" />
-                </div>
-
-                {/* Groom's Name */}
-                <h4 className="font-display text-2xl sm:text-3xl font-bold text-[#1E3025] tracking-tight leading-none">
-                  Ameenuddin
-                </h4>
-
-                {/* Dates & City */}
-                <p className="font-serif text-[11px] sm:text-xs text-[#554C3E] mt-3 font-medium tracking-wide">
-                  18 &amp; 19 October 2026 · Ballari
+                <p className="font-display text-base sm:text-lg font-semibold leading-snug text-[#1E3025] mt-2">
+                  Your presence will make our wedding shine brighter.
                 </p>
               </div>
             </div>
@@ -339,7 +320,7 @@ export function ScratchToReveal() {
               <Hand className="w-3.5 h-3.5 text-[#586F5C] animate-bounce" />
               <span>
                 {hasScratched
-                  ? "Keep scratching to uncover the bride & groom!"
+                  ? "Keep going to uncover our message!"
                   : "Swipe or drag across the glitter heart"}
               </span>
             </div>
@@ -347,7 +328,7 @@ export function ScratchToReveal() {
             <div className="flex flex-col items-center gap-2 animate-fade-in">
               <div className="inline-flex items-center gap-2 text-xs font-serif font-bold text-[#1E3025] bg-[#E8DEC8] px-4 py-1.5 rounded-full border border-[#B58B35]/60 shadow-xs">
                 <Sparkles className="w-3.5 h-3.5 text-[#B58B35]" />
-                <span>Madeeha &amp; Ameenuddin</span>
+                <span>We can’t wait to celebrate with you!</span>
               </div>
               <button
                 type="button"

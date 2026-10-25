@@ -3,7 +3,7 @@
 import React from "react";
 import { weddingData } from "@/data/wedding";
 import { OrnamentalDivider } from "./OrnamentalDivider";
-import { ArrowUp, RotateCcw, Heart, Sparkles, MessageCircle } from "lucide-react";
+import { ArrowUp, RotateCcw, Heart, Phone } from "lucide-react";
 
 interface ClosingSectionProps {
   onReplayIntro?: () => void;
@@ -14,7 +14,7 @@ export function ClosingSection({ onReplayIntro }: ClosingSectionProps) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const { closing } = weddingData;
+  const { closing, footer } = weddingData;
 
   return (
     <footer className="py-24 sm:py-32 px-4 sm:px-6 bg-[#18281F] text-[#F8F3E8] relative overflow-hidden text-center">
@@ -61,7 +61,7 @@ export function ClosingSection({ onReplayIntro }: ClosingSectionProps) {
             {weddingData.bride.fullName} &amp; {weddingData.groom.fullName}
           </h3>
           <p className="font-serif text-xs uppercase tracking-widest text-[#9DA78B] mt-1">
-            {weddingData.dateSummary} · Ballari, Karnataka
+            {weddingData.dateSummary} · {weddingData.locationSummary}
           </p>
         </div>
 
@@ -69,9 +69,6 @@ export function ClosingSection({ onReplayIntro }: ClosingSectionProps) {
         <div className="my-6 space-y-1">
           <p className="font-serif text-sm sm:text-base text-[#F8F3E8]/90 font-medium">
             {closing.compliments}
-          </p>
-          <p className="font-serif text-xs sm:text-sm text-[#E5C365] tracking-wider uppercase font-semibold">
-            {closing.sbtFamilyCompliments}
           </p>
         </div>
 
@@ -108,30 +105,26 @@ export function ClosingSection({ onReplayIntro }: ClosingSectionProps) {
           <p className="flex items-center justify-center gap-1.5">
             <span>Crafted with reverence &amp; barakah</span>
             <Heart className="w-3.5 h-3.5 text-[#D98CA2] fill-[#D98CA2]" />
-            <span>for Ameenuddin &amp; Madeeha</span>
+            <span>for {weddingData.bride.shortName} &amp; {weddingData.groom.shortName}</span>
           </p>
 
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 text-xs font-serif text-[#F8F3E8]/80">
             <span>
               Developed by{" "}
               <a
-                href="https://codemyfyp.com/"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={footer.phoneHref}
                 className="text-[#E5C365] hover:text-white font-semibold underline underline-offset-4 transition-colors"
               >
-                CodeMyFYP IT &amp; Software Solutions
+                {footer.businessName}
               </a>
             </span>
             <span className="hidden sm:inline text-[#B58B35]/40">·</span>
             <a
-              href="https://wa.me/919483808379?text=Hello%20CodeMyFYP%2C%20I%20am%20inquiring%20about%20your%20IT%20and%20Software%20Solutions."
-              target="_blank"
-              rel="noopener noreferrer"
+              href={footer.phoneHref}
               className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#243A2D] hover:bg-[#2e4a38] text-[#E5C365] border border-[#B58B35]/40 transition-all hover:scale-105 shadow-xs"
             >
-              <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
-              <span>WhatsApp: 9483808379</span>
+              <Phone className="w-3.5 h-3.5 text-[#25D366]" />
+              <span>Contact: {footer.phoneDisplay}</span>
             </a>
           </div>
         </div>

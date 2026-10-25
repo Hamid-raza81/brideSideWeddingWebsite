@@ -6,7 +6,7 @@ import { OrnamentalDivider } from "./OrnamentalDivider";
 import { Clock, Heart } from "lucide-react";
 
 export function WeddingCountdown() {
-  const [mounted, setMounted] = useState(false);
+  const nikahEvent = weddingData.events.find((event) => event.id === "nikah");
   const [timeLeft, setTimeLeft] = useState<{
     days: number;
     hours: number;
@@ -16,8 +16,9 @@ export function WeddingCountdown() {
   } | null>(null);
 
   useEffect(() => {
-    setMounted(true);
-    const targetDate = new Date(weddingData.targetDateTimeISO).getTime();
+    const nikahTimeISO = weddingData.events.find((event) => event.id === "nikah")?.timeISO;
+    if (!nikahTimeISO) return;
+    const targetDate = new Date(nikahTimeISO).getTime();
 
     const calculateTime = () => {
       const now = new Date().getTime();
@@ -51,16 +52,15 @@ export function WeddingCountdown() {
       }
     };
 
-    calculateTime();
     const interval = setInterval(calculateTime, 1000);
     return () => clearInterval(interval);
   }, []);
 
   const timeUnits = [
-    { label: "Days", value: mounted && timeLeft ? timeLeft.days : 0 },
-    { label: "Hours", value: mounted && timeLeft ? timeLeft.hours : 0 },
-    { label: "Minutes", value: mounted && timeLeft ? timeLeft.minutes : 0 },
-    { label: "Seconds", value: mounted && timeLeft ? timeLeft.seconds : 0 },
+    { label: "Days", value: timeLeft?.days ?? 0 },
+    { label: "Hours", value: timeLeft?.hours ?? 0 },
+    { label: "Minutes", value: timeLeft?.minutes ?? 0 },
+    { label: "Seconds", value: timeLeft?.seconds ?? 0 },
   ];
 
   return (
@@ -72,7 +72,7 @@ export function WeddingCountdown() {
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B58B35]/20 border border-[#B58B35]/40 text-[#E5C365] text-xs font-serif uppercase tracking-widest mb-4">
           <Clock className="w-3.5 h-3.5" />
-          <span>Countdown to the Nikah</span>
+          <span>Countdown to the {nikahEvent?.name ?? "Nikah"}</span>
         </div>
 
         <h2 className="font-display text-2xl sm:text-4xl text-[#F8F3E8] font-bold tracking-tight mb-2">
@@ -80,7 +80,9 @@ export function WeddingCountdown() {
         </h2>
 
         <p className="font-serif italic text-sm sm:text-base text-[#9DA78B] max-w-lg mx-auto mb-6">
-          Mehfil-e-Nikah commences on Sunday, 18 October 2026 at 12:30 PM IST
+          {nikahEvent
+            ? `${nikahEvent.name} begins on ${nikahEvent.date} at ${nikahEvent.time}`
+            : weddingData.dateSummary}
         </p>
 
         <OrnamentalDivider variant="gold" symbol="star" className="my-4" />
@@ -126,7 +128,7 @@ export function WeddingCountdown() {
         )}
 
         <p className="font-serif text-xs text-[#9DA78B] tracking-wider uppercase mt-4">
-          Timezone: Indian Standard Time (IST) · Ballari, Karnataka
+          Timezone: {weddingData.timezoneLabel} · {weddingData.locationSummary}
         </p>
       </div>
     </section>

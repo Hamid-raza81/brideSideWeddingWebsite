@@ -3,6 +3,8 @@ import { weddingData } from "@/data/wedding";
 import { OrnamentalDivider } from "./OrnamentalDivider";
 
 export function WelcomeSection() {
+  const groomFamily = weddingData.families.groom;
+
   return (
     <section
       id="invitation"
@@ -10,7 +12,7 @@ export function WelcomeSection() {
     >
       {/* Delicate background ornament */}
       <div className="max-w-4xl mx-auto">
-        {/* Main Printed Invitation Card Representation */}
+        {/* Formal digital invitation card */}
         <div className="relative rounded-3xl bg-[#FCF9F2] border-2 border-[#B58B35]/30 p-8 sm:p-14 md:p-16 shadow-xl text-center">
           {/* Ornate Corner Accents */}
           <div className="absolute top-4 left-4 w-10 h-10 border-t-2 border-l-2 border-[#B58B35] rounded-tl-lg pointer-events-none" />
@@ -40,11 +42,15 @@ export function WelcomeSection() {
             </span>
           </div>
 
-          {/* Host / Grandmother's Invitation Line */}
+          {/* Invitation from the bride's parents */}
           <div className="max-w-2xl mx-auto space-y-4">
             <h3 className="font-display text-2xl sm:text-3xl text-[#243A2D] font-bold tracking-tight">
               {weddingData.mainInvitationMessage.invitationBy}
             </h3>
+
+            <p className="font-serif text-sm sm:text-base text-[#82611E] leading-relaxed">
+              {weddingData.mainInvitationMessage.hostAddress}
+            </p>
 
             <p className="font-serif text-base sm:text-lg text-[#5E5A4F] leading-relaxed">
               {weddingData.mainInvitationMessage.body}
@@ -59,9 +65,6 @@ export function WelcomeSection() {
               </span>
               <p className="font-display text-2xl sm:text-3xl font-bold text-[#243A2D]">
                 {weddingData.bride.fullName}
-              </p>
-              <p className="font-serif text-xs sm:text-sm text-[#B58B35] font-semibold">
-                {weddingData.bride.qualifications}
               </p>
             </div>
 
@@ -80,8 +83,11 @@ export function WelcomeSection() {
               <p className="font-display text-2xl sm:text-3xl font-bold text-[#243A2D]">
                 {weddingData.groom.fullName}
               </p>
-              <p className="font-serif text-xs sm:text-sm text-[#B58B35] font-semibold">
-                {weddingData.groom.qualifications}
+              <p className="font-serif text-sm sm:text-base text-[#5E5A4F] pt-1">
+                {groomFamily.relationshipTitle}
+              </p>
+              <p className="font-serif text-sm text-[#5E5A4F]">
+                Address: {groomFamily.additionalInfo}
               </p>
             </div>
           </div>
@@ -95,7 +101,7 @@ export function WelcomeSection() {
 
           {/* Compliments badge */}
           <p className="font-serif italic text-xs sm:text-sm text-[#9DA78B] uppercase tracking-wider">
-            Inshallaha
+            InshaAllah
           </p>
         </div>
       </div>

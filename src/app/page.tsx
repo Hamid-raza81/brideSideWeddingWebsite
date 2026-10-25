@@ -7,13 +7,14 @@ import { WeddingHero } from "@/components/WeddingHero";
 import { WelcomeSection } from "@/components/WelcomeSection";
 import { WeddingEvents } from "@/components/WeddingEvents";
 import { WeddingCountdown } from "@/components/WeddingCountdown";
+import { WeddingGallery } from "@/components/WeddingGallery";
 import { ScratchToReveal } from "@/components/ScratchToReveal";
-import { FamilySection } from "@/components/FamilySection";
 import { VenueSection } from "@/components/VenueSection";
 import { ShareInvitation } from "@/components/ShareInvitation";
 import { ClosingSection } from "@/components/ClosingSection";
 import { BackgroundMusicPlayer } from "@/components/BackgroundMusicPlayer";
 import { FallingRainParticles } from "@/components/FallingRainParticles";
+import { weddingData } from "@/data/wedding";
 
 export default function WeddingPage() {
   // Full-screen video shows first when the user lands on the site
@@ -71,9 +72,9 @@ export default function WeddingPage() {
       {/* Background Wedding Music Audio Element — Plays seamlessly throughout */}
       <audio
         ref={audioRef}
-        src="/audio/wedding-bg-music.mp3"
+        src={weddingData.assets.backgroundMusicSrc}
         loop
-        preload="auto"
+        preload="none"
       />
 
       {/* Full-Screen Video Presentation — Video muted, entrance song replaced by full wedding song */}
@@ -93,23 +94,23 @@ export default function WeddingPage() {
         onOpenShareModal={() => setIsShareModalOpen(true)}
       />
 
-      {/* Hero Presentation with Couple Artwork */}
+      {/* Hero presentation with the couple's wedding artwork */}
       <WeddingHero />
 
-      {/* Welcome Card & Grandmother's Invitation */}
+      {/* Invitation card sits directly above the countdown. */}
       <WelcomeSection />
 
-      {/* Wedding Events: Nikah & Valima */}
-      <WeddingEvents />
-
-      {/* Live Countdown to Nikah */}
+      {/* Countdown appears near the top for guests. */}
       <WeddingCountdown />
 
-      {/* Interactive Scratch to Reveal Couple Card */}
+      {/* Scratch-to-reveal note follows the countdown. */}
       <ScratchToReveal />
 
-      {/* Respected Lineage & Family Details */}
-      <FamilySection />
+      {/* Haldi, Mehndi, Nikah, and Dinner */}
+      <WeddingEvents />
+
+      {/* Client photo gallery */}
+      <WeddingGallery />
 
       {/* Venues & Google Maps Directions */}
       <VenueSection />

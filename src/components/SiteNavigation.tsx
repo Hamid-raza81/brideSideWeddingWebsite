@@ -13,21 +13,25 @@ export function SiteNavigation({ onOpenShareModal }: SiteNavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    let animationFrame = 0;
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(() => {
+        const nextScrolled = window.scrollY > 50;
+        setIsScrolled((current) => current === nextScrolled ? current : nextScrolled);
+        animationFrame = 0;
+      });
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+    };
   }, []);
 
   const navLinks = [
     { name: "Invitation", href: "#invitation" },
     { name: "Celebrations", href: "#celebrations" },
-    { name: "Our Families", href: "#families" },
     { name: "Venue", href: "#venue" },
   ];
 
@@ -49,24 +53,24 @@ export function SiteNavigation({ onOpenShareModal }: SiteNavigationProps) {
             : "bg-transparent py-4 sm:py-5"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-3 sm:px-6 grid grid-cols-[minmax(0,1fr)_auto] md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:gap-4">
           {/* Couple Text Brand in Header (No logo) */}
           <a
             href="#hero"
             onClick={(e) => handleLinkClick(e, "#hero")}
-            className="flex flex-col group cursor-pointer"
+            className="flex min-w-0 flex-col group cursor-pointer"
           >
-            <span className="font-display text-sm sm:text-base font-bold text-[#243A2D] tracking-wide group-hover:text-[#B58B35] transition-colors leading-tight">
+            <span className="font-display text-[13px] sm:text-base font-bold text-[#243A2D] tracking-wide group-hover:text-[#B58B35] transition-colors leading-tight whitespace-nowrap">
               {weddingData.bride.shortName} &amp; {weddingData.groom.shortName}
             </span>
-            <span className="font-serif text-[10px] tracking-widest text-[#B58B35] uppercase mt-0.5">
+            <span className="font-serif text-[9px] sm:text-[10px] tracking-[0.12em] sm:tracking-widest text-[#B58B35] uppercase mt-0.5 whitespace-nowrap">
               {weddingData.dateSummary}
             </span>
           </a>
 
           {/* Desktop Navigation Links */}
           <nav
-            className="hidden md:flex items-center gap-7 font-serif text-sm tracking-wider uppercase"
+            className="hidden md:flex items-center justify-self-center gap-4 lg:gap-7 font-serif text-xs lg:text-sm tracking-wider uppercase whitespace-nowrap"
             aria-label="Main Navigation"
           >
             {navLinks.map((link) => (
@@ -82,7 +86,7 @@ export function SiteNavigation({ onOpenShareModal }: SiteNavigationProps) {
           </nav>
 
           {/* Right Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center justify-self-end gap-1.5 sm:gap-3">
             {/* Share Invitation Trigger */}
             <button
               type="button"
@@ -90,6 +94,7 @@ export function SiteNavigation({ onOpenShareModal }: SiteNavigationProps) {
               onClick={onOpenShareModal}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full border border-[#B58B35]/60 bg-[#F8F3E8] hover:bg-[#B58B35] text-[#243A2D] hover:text-[#F8F3E8] text-xs font-serif font-medium tracking-wider uppercase transition-all duration-300 cursor-pointer shadow-sm"
               title="Share Invitation"
+              aria-label="Share invitation"
             >
               <Share2 className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Share</span>
@@ -121,7 +126,7 @@ export function SiteNavigation({ onOpenShareModal }: SiteNavigationProps) {
           onClick={() => setIsMobileMenuOpen(false)}
         >
           <div
-            className="fixed top-16 right-4 left-4 rounded-2xl bg-[#F8F3E8] border border-[#B58B35]/30 shadow-2xl p-6 text-center"
+            className="fixed top-[calc(4.5rem+env(safe-area-inset-top))] right-3 left-3 max-h-[calc(100dvh-5rem-env(safe-area-inset-top))] overflow-y-auto rounded-2xl bg-[#F8F3E8] border border-[#B58B35]/30 shadow-2xl p-4 sm:right-4 sm:left-4 sm:p-6 text-center"
             onClick={(e) => e.stopPropagation()}
           >
             <p className="font-display font-bold text-base text-[#243A2D] mb-1">

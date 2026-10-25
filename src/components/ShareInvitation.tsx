@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { weddingData } from "@/data/wedding";
+import { copyTextToClipboard } from "@/lib/copyTextToClipboard";
 import { OrnamentalDivider } from "./OrnamentalDivider";
 import {
   Share2,
@@ -24,43 +25,66 @@ export function ShareInvitation({
   onCloseModal,
 }: ShareInvitationProps) {
   const [copied, setCopied] = useState(false);
-  const [canShare, setCanShare] = useState(false);
-  const [currentUrl, setCurrentUrl] = useState("");
+  const [copyFailed, setCopyFailed] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  const getCurrentUrl = () => typeof window === "undefined" ? (configuredUrl || "") : (configuredUrl || window.location.href);
+  const nikahLocationUrl = weddingData.events.find((event) => event.id === "nikah")?.mapsSearchUrl ?? "";
+  const locationQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data=${encodeURIComponent(nikahLocationUrl)}`;
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setCurrentUrl(window.location.href);
-      if (typeof navigator !== "undefined" && !!navigator.share) {
-        setCanShare(true);
-      }
-    }
-  }, []);
+    if (!isModalOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onCloseModal?.();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+      previousFocus?.focus();
+    };
+  }, [isModalOpen, onCloseModal]);
 
-  const shareText = weddingData.shareDetails.messageText;
+  const shareText = [
+    weddingData.shareDetails.messageText,
+    weddingData.shareDetails.closingMessage,
+  ].join("\n\n");
 
   const handleNativeShare = async () => {
-    if (navigator.share) {
+    if (typeof navigator !== "undefined" && navigator.share) {
       try {
         await navigator.share({
           title: weddingData.shareDetails.title,
           text: shareText,
-          url: currentUrl || undefined,
+          url: getCurrentUrl(),
         });
-      } catch (err) {
-        // User cancelled or share failed silently
+      } catch {
+        // The browser can reject sharing when the user dismisses the native sheet.
       }
+    } else {
+      await handleCopyLink();
     }
   };
 
-  const handleCopyLink = () => {
-    const textToCopy = currentUrl ? `${shareText}\n\n${currentUrl}` : shareText;
-    navigator.clipboard.writeText(textToCopy);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+  const handleCopyLink = async () => {
+    const textToCopy = `${shareText}\n\n${getCurrentUrl()}`;
+    try {
+      await copyTextToClipboard(textToCopy);
+      setCopyFailed(false);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2500);
+    } catch {
+      setCopied(false);
+      setCopyFailed(true);
+    }
   };
 
   const getWhatsAppShareUrl = () => {
-    const message = currentUrl ? `${shareText}\n\n${currentUrl}` : shareText;
+    const message = `${shareText}\n\n${getCurrentUrl()}`;
     return `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
   };
 
@@ -102,7 +126,7 @@ export function ShareInvitation({
         </a>
 
         {/* Web Share API (if supported) */}
-        {canShare && (
+        {
           <button
             type="button"
             onClick={handleNativeShare}
@@ -111,7 +135,7 @@ export function ShareInvitation({
             <Share2 className="w-4 h-4 text-[#E5C365]" />
             <span>Share Invitation</span>
           </button>
-        )}
+        }
 
         {/* Copy Text & Link Fallback */}
         <button
@@ -127,7 +151,7 @@ export function ShareInvitation({
           ) : (
             <>
               <Copy className="w-4 h-4 text-[#B58B35]" />
-              <span>Copy Invitation Link</span>
+              <span>{copyFailed ? "Copy unavailable" : "Copy Invitation Link"}</span>
             </>
           )}
         </button>
@@ -138,11 +162,12 @@ export function ShareInvitation({
         <div className="p-4 rounded-2xl bg-white border border-[#B58B35]/30 shadow-md inline-block">
           <div className="relative w-48 h-48 mx-auto bg-white p-2">
             <Image
-              src={weddingData.qrCode.imageSrc}
-              alt="Supplied Invitation QR Code"
+              src={locationQrUrl}
+              alt={`QR code for ${weddingData.qrCode.title} directions in Google Maps`}
               fill
               sizes="200px"
               className="object-contain"
+              unoptimized
             />
           </div>
           <div className="mt-3 text-center">
@@ -180,6 +205,7 @@ export function ShareInvitation({
             onClick={(e) => e.stopPropagation()}
           >
             <button
+              ref={closeButtonRef}
               type="button"
               onClick={onCloseModal}
               className="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-[#302E27] transition-colors"

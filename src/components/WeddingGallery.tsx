@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
-import { galleryItems, GalleryItem } from "@/data/wedding";
+import { galleryItems, GalleryItem, weddingData } from "@/data/wedding";
 import { OrnamentalDivider } from "./OrnamentalDivider";
 import { ZoomIn, X, ChevronLeft, ChevronRight, Eye } from "lucide-react";
 
@@ -10,30 +10,31 @@ export function WeddingGallery() {
   const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(
     null
   );
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
 
-  const handleOpenLightbox = (index: number) => {
+  const handleOpenLightbox = (index: number, trigger: HTMLElement) => {
+    returnFocusRef.current = trigger;
     setSelectedItemIndex(index);
   };
 
-  const handleCloseLightbox = () => {
-    setSelectedItemIndex(null);
-  };
+  const handleCloseLightbox = useCallback(() => setSelectedItemIndex(null), []);
 
   const handlePrev = useCallback(() => {
-    if (selectedItemIndex === null) return;
-    setSelectedItemIndex(
-      (selectedItemIndex - 1 + galleryItems.length) % galleryItems.length
-    );
-  }, [selectedItemIndex]);
+    setSelectedItemIndex((current) => current === null ? null : (current - 1 + galleryItems.length) % galleryItems.length);
+  }, []);
 
   const handleNext = useCallback(() => {
-    if (selectedItemIndex === null) return;
-    setSelectedItemIndex((selectedItemIndex + 1) % galleryItems.length);
-  }, [selectedItemIndex]);
+    setSelectedItemIndex((current) => current === null ? null : (current + 1) % galleryItems.length);
+  }, []);
 
   // Keyboard controls for lightbox
+  const isLightboxOpen = selectedItemIndex !== null;
   useEffect(() => {
-    if (selectedItemIndex === null) return;
+    if (!isLightboxOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -46,45 +47,47 @@ export function WeddingGallery() {
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedItemIndex, handlePrev, handleNext]);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+      returnFocusRef.current?.focus();
+    };
+  }, [isLightboxOpen, handleCloseLightbox, handlePrev, handleNext]);
 
   const activeItem: GalleryItem | null =
     selectedItemIndex !== null ? galleryItems[selectedItemIndex] : null;
 
   return (
-    <section id="gallery" className="py-20 sm:py-28 px-4 sm:px-6 bg-[#FCF9F2] relative">
+    <section id="gallery" className="py-16 sm:py-24 lg:py-28 px-4 sm:px-6 bg-[#FCF9F2] relative">
       <div className="max-w-6xl mx-auto">
         {/* Section Heading */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <span className="font-serif uppercase tracking-[0.2em] text-[#B58B35] text-xs sm:text-sm font-semibold">
             Visual Keepsakes
           </span>
           <h2 className="font-display text-3xl sm:text-5xl text-[#243A2D] font-bold tracking-tight mt-2 mb-3">
-            Invitation Gallery
+            {weddingData.gallery.heading}
           </h2>
           <p className="font-serif italic text-sm sm:text-base text-[#5E5A4F]">
-            Explore the authentic wedding artwork and physical printed card with laser-cut filigree. Click any image to view in high resolution.
+            {weddingData.gallery.description}
           </p>
           <OrnamentalDivider variant="gold" symbol="diamond" className="mt-4" />
         </div>
 
         {/* Gallery Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 max-w-5xl mx-auto gap-5 sm:gap-6">
           {galleryItems.map((item, index) => {
-            const isPrinted = item.id === "printed-invitation";
-
             return (
-              <div
+              <button
+                type="button"
                 key={item.id}
-                onClick={() => handleOpenLightbox(index)}
+                onClick={(event) => handleOpenLightbox(index, event.currentTarget)}
+                aria-label={`View ${item.title} in full size`}
                 className="group relative rounded-3xl bg-white border-2 border-[#B58B35]/30 shadow-lg overflow-hidden cursor-pointer flex flex-col justify-between hover:border-[#B58B35] hover:shadow-2xl transition-all duration-300"
               >
                 {/* Image Container */}
                 <div
-                  className={`relative w-full overflow-hidden bg-[#F8F3E8] flex items-center justify-center ${
-                    isPrinted ? "aspect-[3/4]" : "aspect-[4/3] sm:aspect-[3/2]"
-                  }`}
+                  className="relative w-full aspect-[4/3] sm:aspect-[3/2] overflow-hidden bg-[#F8F3E8] flex items-center justify-center"
                 >
                   <Image
                     src={item.src}
@@ -129,7 +132,7 @@ export function WeddingGallery() {
                     <Eye className="w-4 h-4" />
                   </div>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -146,6 +149,7 @@ export function WeddingGallery() {
         >
           {/* Close button */}
           <button
+            ref={closeButtonRef}
             type="button"
             onClick={handleCloseLightbox}
             aria-label="Close Lightbox"
@@ -185,7 +189,7 @@ export function WeddingGallery() {
             className="relative max-w-4xl max-h-[90vh] w-full flex flex-col items-center justify-center p-2"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative w-full max-h-[75vh] h-[600px] flex items-center justify-center">
+            <div className="relative w-full h-[min(75vh,600px)] flex items-center justify-center">
               <Image
                 src={activeItem.src}
                 alt={activeItem.alt}

@@ -2,20 +2,16 @@ import React from "react";
 import Image from "next/image";
 import { weddingData } from "@/data/wedding";
 import { OrnamentalDivider } from "./OrnamentalDivider";
-import { Calendar, MapPin, Sparkles, ChevronDown, Play } from "lucide-react";
+import { Calendar, MapPin, Sparkles, ChevronDown } from "lucide-react";
 
-interface WeddingHeroProps {
-  onOpenVideo?: () => void;
-}
-
-export function WeddingHero({ onOpenVideo }: WeddingHeroProps) {
+export function WeddingHero() {
   return (
     <section
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-16 px-4 sm:px-6 bg-arabesque-pattern overflow-hidden text-center"
     >
       {/* Soft warm light bloom and decorative background aura */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] max-w-full rounded-full bg-gradient-to-b from-[#B58B35]/10 via-[#9DA78B]/10 to-transparent blur-3xl pointer-events-none" />
+      <div className="hidden sm:block absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] max-w-full rounded-full bg-gradient-to-b from-[#B58B35]/10 via-[#9DA78B]/10 to-transparent blur-3xl pointer-events-none" />
 
       {/* Decorative Ornate Corner Accents */}
       <div className="absolute top-8 left-8 w-16 h-16 border-t-2 border-l-2 border-[#B58B35]/40 rounded-tl-xl pointer-events-none hidden sm:block" />
@@ -67,23 +63,23 @@ export function WeddingHero({ onOpenVideo }: WeddingHeroProps) {
           </h2>
         </div>
 
-        {/* Wedding Artwork Presentation Card */}
+        {/* Couple artwork: replace this image for another invitation client. */}
         <div className="my-8 relative group max-w-md sm:max-w-lg w-full">
           {/* Ornate Gold Outer Arch Frame */}
           <div className="relative rounded-3xl p-2 sm:p-3 bg-gradient-to-b from-[#E5C365]/30 via-[#B58B35]/20 to-[#243A2D]/10 shadow-2xl">
             <div className="relative rounded-2xl overflow-hidden border border-[#B58B35]/50 bg-white aspect-[3/2] shadow-inner">
               <Image
-                src="/images/wedding-artwork.png"
-                alt="Madeeha Nikhat & Mohammed Ameenuddin Ashrafi Illustrated Wedding Artwork"
+                src={weddingData.assets.heroImageSrc}
+                alt={`Wedding invitation artwork for ${weddingData.bride.fullName} and ${weddingData.groom.fullName}`}
                 fill
                 priority
                 sizes="(max-width: 640px) 90vw, (max-width: 1024px) 500px, 600px"
-                className="object-contain object-center transform group-hover:scale-102 transition-transform duration-700"
+                className="object-contain object-center transform group-hover:scale-[1.02] transition-transform duration-700"
               />
             </div>
             {/* Fine Caption Tag */}
             <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#243A2D] text-[#E5C365] border border-[#B58B35] shadow-md text-[11px] font-serif uppercase tracking-widest whitespace-nowrap">
-              Celebration of Love · SBT Family
+              A Celebration of Love
             </div>
           </div>
         </div>
@@ -93,14 +89,12 @@ export function WeddingHero({ onOpenVideo }: WeddingHeroProps) {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-[#B58B35]/30 shadow-xs text-xs sm:text-sm font-serif text-[#243A2D]">
             <Calendar className="w-4 h-4 text-[#B58B35]" />
             <span className="font-semibold">{weddingData.dateSummary}</span>
-            <span className="text-[#9DA78B]">|</span>
-            <span className="text-[#5E5A4F]">{weddingData.islamicDateSummary}</span>
           </div>
 
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-[#B58B35]/30 shadow-xs text-xs sm:text-sm font-serif text-[#243A2D]">
+          <a href={weddingData.events.find((event) => event.id === "nikah")?.mapsSearchUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-[#B58B35]/30 shadow-xs text-xs sm:text-sm font-serif text-[#243A2D] hover:border-[#B58B35]">
             <MapPin className="w-4 h-4 text-[#B58B35]" />
             <span className="font-semibold">{weddingData.locationSummary}</span>
-          </div>
+          </a>
         </div>
 
         {/* Action Buttons */}

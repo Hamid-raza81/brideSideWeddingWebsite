@@ -34,6 +34,7 @@ export function HeroVideoIntro({
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastProgressUpdateRef = useRef(0);
 
   // Trigger celebration confetti
   const triggerConfetti = useCallback(() => {
@@ -55,9 +56,16 @@ export function HeroVideoIntro({
     triggerConfetti();
     setIsFadingOut(true);
     setTimeout(() => {
-      onComplete();
       setIsFadingOut(false);
       setHasStartedPlaying(false);
+      setIsPlaying(false);
+      setCurrentTime(0);
+      setShowControls(true);
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+      }
+      onComplete();
     }, 800);
   }, [triggerConfetti, onComplete]);
 
@@ -66,21 +74,12 @@ export function HeroVideoIntro({
     handleFinish();
   }, [handleFinish]);
 
-  // Reset when activated
+  // Keep the inactivity timer from firing after the intro has unmounted.
   useEffect(() => {
-    if (!isActive) return;
-
-    setIsFadingOut(false);
-    setHasStartedPlaying(false);
-    setIsPlaying(false);
-    setCurrentTime(0);
-
-    const video = videoRef.current;
-    if (video) {
-      video.pause();
-      video.currentTime = 0;
-    }
-  }, [isActive]);
+    return () => {
+      if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
+    };
+  }, []);
 
   // Start playing on user tap/click anywhere
   const startPlayback = () => {
@@ -139,9 +138,13 @@ export function HeroVideoIntro({
     }
     setIsFadingOut(true);
     setTimeout(() => {
-      onComplete();
       setIsFadingOut(false);
       setHasStartedPlaying(false);
+      setIsPlaying(false);
+      setCurrentTime(0);
+      setShowControls(true);
+      if (videoRef.current) videoRef.current.currentTime = 0;
+      onComplete();
     }, 500);
   };
 
@@ -163,13 +166,17 @@ export function HeroVideoIntro({
       {/* 100% Full-Screen Edge-to-Edge Video — Video muted, entrance song replaced by full wedding song */}
       <video
         ref={videoRef}
-        src="/images/gemini_generated_video_03cf4159.mp4"
+        src={weddingData.assets.introVideoSrc}
         playsInline
-        preload="auto"
+        preload="metadata"
         muted
         onTimeUpdate={() => {
           if (videoRef.current) {
-            setCurrentTime(videoRef.current.currentTime);
+            const now = performance.now();
+            if (now - lastProgressUpdateRef.current >= 250) {
+              lastProgressUpdateRef.current = now;
+              setCurrentTime(videoRef.current.currentTime);
+            }
           }
         }}
         onLoadedMetadata={() => {

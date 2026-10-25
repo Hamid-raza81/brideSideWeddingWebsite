@@ -1,78 +1,70 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Cormorant_Garamond,
-  Playfair_Display,
-  Great_Vibes,
-  Amiri,
-  Plus_Jakarta_Sans,
-} from "next/font/google";
+import localFont from "next/font/local";
+import { weddingData } from "@/data/wedding";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-serif",
+const cormorant = localFont({
+  src: "./fonts/cormorant-garamond-variable.woff2",
+  variable: "--font-cormorant",
+  weight: "300 700",
   display: "swap",
 });
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "900"],
-  variable: "--font-display",
+const playfair = localFont({
+  src: "./fonts/playfair-display-variable.woff2",
+  variable: "--font-playfair",
+  weight: "400 900",
   display: "swap",
 });
 
-const greatVibes = Great_Vibes({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-script",
+const greatVibes = localFont({
+  src: "./fonts/great-vibes-regular.woff2",
+  variable: "--font-great-vibes",
+  weight: "400",
   display: "swap",
 });
 
-const amiri = Amiri({
-  subsets: ["arabic"],
-  weight: ["400", "700"],
-  variable: "--font-arabic",
+const amiri = localFont({
+  src: [
+    { path: "./fonts/amiri-arabic-regular.woff2", weight: "400" },
+    { path: "./fonts/amiri-arabic-bold.woff2", weight: "700" },
+  ],
+  variable: "--font-amiri",
   display: "swap",
 });
 
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-sans",
+const jakarta = localFont({
+  src: "./fonts/plus-jakarta-sans-variable.woff2",
+  variable: "--font-jakarta",
+  weight: "400 800",
   display: "swap",
 });
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
+  : process.env.VERCEL_URL
+    ? new URL(`https://${process.env.VERCEL_URL}`)
+    : undefined;
+const coupleNames = `${weddingData.bride.fullName} & ${weddingData.groom.fullName}`;
+const socialImage = siteUrl
+  ? [{ url: weddingData.assets.heroImageSrc, alt: `Wedding invitation for ${coupleNames}` }]
+  : undefined;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://ameenuddin-weds-madeeha.wedding"
-  ),
-  title: "Madeeha Nikhat & Mohammed Ameenuddin Ashrafi — Wedding Invitation",
-  description:
-    "A wedding invitation for the Mehfil-e-Nikah on 18 October 2026 and Dawat-e-Valima on 19 October 2026 in Ballari, Karnataka.",
+  metadataBase: siteUrl,
+  title: `${coupleNames} — Wedding Invitation`,
+  description: weddingData.seo.description,
   openGraph: {
-    title: "Madeeha Nikhat & Mohammed Ameenuddin Ashrafi — Wedding Invitation",
-    description:
-      "A wedding invitation for the Mehfil-e-Nikah on 18 October 2026 and Dawat-e-Valima on 19 October 2026 in Ballari, Karnataka.",
-    images: [
-      {
-        url: "/images/wedding-artwork.png",
-        width: 1200,
-        height: 800,
-        alt: "Wedding Invitation - Madeeha Nikhat & Mohammed Ameenuddin Ashrafi",
-      },
-    ],
+    title: `${coupleNames} — Wedding Invitation`,
+    description: weddingData.seo.description,
+    images: socialImage,
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Madeeha Nikhat & Mohammed Ameenuddin Ashrafi — Wedding Invitation",
-    description:
-      "Mehfil-e-Nikah: 18 October 2026 | Dawat-e-Valima: 19 October 2026 | Ballari, Karnataka",
-    images: ["/images/wedding-artwork.png"],
-  },
-  icons: {
-    icon: "/favicon.ico",
+    title: `${coupleNames} — Wedding Invitation`,
+    description: weddingData.seo.description,
+    images: siteUrl ? [weddingData.assets.heroImageSrc] : undefined,
   },
 };
 
@@ -88,10 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${cormorant.variable} ${playfair.variable} ${greatVibes.variable} ${amiri.variable} ${jakarta.variable} scroll-smooth`}
-    >
+    <html lang="en" className={`${cormorant.variable} ${playfair.variable} ${greatVibes.variable} ${amiri.variable} ${jakarta.variable} scroll-smooth`}>
       <body className="min-h-screen bg-[#F8F3E8] text-[#302E27] font-sans antialiased selection:bg-[#B58B35]/20 selection:text-[#243A2D] overflow-x-hidden">
         {children}
       </body>
