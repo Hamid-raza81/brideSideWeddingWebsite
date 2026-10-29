@@ -15,7 +15,7 @@ export function ScratchToReveal() {
   const CANVAS_WIDTH = 360;
   const CANVAS_HEIGHT = 320;
 
-  // Initialize canvas with sage green glitter heart matching the user's artwork
+  // Initialize canvas with a blush, rose, and champagne glitter heart.
   const initCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -25,7 +25,7 @@ export function ScratchToReveal() {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-    // 1. Sage Green Radial Gradient
+    // 1. Romantic floral radial gradient
     const grad = ctx.createRadialGradient(
       CANVAS_WIDTH / 2,
       CANVAS_HEIGHT * 0.4,
@@ -34,10 +34,10 @@ export function ScratchToReveal() {
       CANVAS_HEIGHT * 0.48,
       CANVAS_WIDTH * 0.58
     );
-    grad.addColorStop(0, "#C7D6C9"); // soft highlight glow in upper-center
-    grad.addColorStop(0.28, "#A3B6A5");
-    grad.addColorStop(0.65, "#6F8674");
-    grad.addColorStop(1, "#445949"); // deep rich sage-forest green rim
+    grad.addColorStop(0, "#FFF9F3");
+    grad.addColorStop(0.28, "#F4DDE1");
+    grad.addColorStop(0.65, "#C98795");
+    grad.addColorStop(1, "#70535C");
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
@@ -53,14 +53,14 @@ export function ScratchToReveal() {
       ctx.arc(px, py, radius, 0, Math.PI * 2);
 
       if (i % 6 === 0) {
-        // Gold flecks
-        ctx.fillStyle = `rgba(235, 215, 140, ${opacity})`;
+        // Champagne flecks
+        ctx.fillStyle = `rgba(214, 188, 141, ${opacity})`;
       } else if (i % 7 === 0) {
-        // Deep emerald fleck for depth
-        ctx.fillStyle = `rgba(35, 52, 40, ${opacity * 0.6})`;
+        // Deep rose flecks for depth
+        ctx.fillStyle = `rgba(70, 52, 58, ${opacity * 0.55})`;
       } else if (i % 3 === 0) {
-        // Shimmering silver flecks
-        ctx.fillStyle = `rgba(225, 240, 230, ${opacity})`;
+        // Shimmering sage flecks
+        ctx.fillStyle = `rgba(201, 209, 195, ${opacity})`;
       } else {
         // Pure sparkling white
         ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
@@ -118,7 +118,7 @@ export function ScratchToReveal() {
             particleCount: 95,
             spread: 90,
             origin: { y: 0.62 },
-            colors: ["#B58B35", "#E5C365", "#6F8674", "#F8F3E8", "#D98CA2"],
+            colors: ["#C6A46A", "#D6BC8D", "#84927D", "#FFF9F3", "#C98795"],
             disableForReducedMotion: true,
           });
         } catch {
@@ -207,7 +207,7 @@ export function ScratchToReveal() {
       className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden text-center selection:bg-transparent"
       style={{
         // Woven natural linen fabric texture background matching user's photo
-        backgroundColor: "#DED3C1",
+        backgroundColor: "#F7EEE8",
         backgroundImage: `
           linear-gradient(90deg, rgba(160, 142, 118, 0.22) 1px, transparent 1px),
           linear-gradient(0deg, rgba(160, 142, 118, 0.22) 1px, transparent 1px),
@@ -227,28 +227,28 @@ export function ScratchToReveal() {
       </svg>
 
       {/* Soft atmospheric center highlight */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-white/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-[#FFFDF9]/20 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-xl mx-auto relative z-10 flex flex-col items-center">
         {/* Title: 'Scratch to Reveal' in flowing calligraphy script matching user reference */}
-        <h2 className="font-script text-5xl sm:text-7xl text-[#445848] tracking-wide mb-1 select-none drop-shadow-xs">
+        <h2 className="font-script text-5xl sm:text-7xl text-[#6B555C] tracking-wide mb-1 select-none drop-shadow-xs">
           Scratch to Reveal
         </h2>
 
         {/* Delicate Heart Divider line matching reference */}
-        <div className="flex items-center justify-center gap-3 w-48 sm:w-56 mx-auto my-3 text-[#586F5C]">
-          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#586F5C]/70" />
+        <div className="flex items-center justify-center gap-3 w-48 sm:w-56 mx-auto my-3 text-[#84927D]">
+          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#84927D]/70" />
           {/* Small heart glyph */}
           <svg
-            className="w-2.5 h-2.5 fill-[#586F5C] text-[#586F5C]"
+            className="w-2.5 h-2.5 fill-[#84927D] text-[#84927D]"
             viewBox="0 0 24 24"
           >
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
           </svg>
-          <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#586F5C]/70" />
+          <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#84927D]/70" />
         </div>
 
-        <p className="font-serif italic text-xs sm:text-sm text-[#4E4437] mb-7 max-w-xs sm:max-w-md">
+        <p className="font-serif italic text-xs sm:text-sm text-[#75636A] mb-7 max-w-xs sm:max-w-md">
           Scratch the sparkling heart to reveal a little message from us
         </p>
 
@@ -263,7 +263,7 @@ export function ScratchToReveal() {
             <path
               d="M 0.5 0.24 C 0.42 0.08, 0.08 0.08, 0.08 0.36 C 0.08 0.58, 0.30 0.76, 0.5 0.94 C 0.70 0.76, 0.92 0.58, 0.92 0.36 C 0.92 0.08, 0.58 0.08, 0.5 0.24 Z"
               fill="none"
-              stroke="#445848"
+              stroke="#6B555C"
               strokeWidth="0.012"
             />
           </svg>
@@ -277,18 +277,18 @@ export function ScratchToReveal() {
             }}
           >
             {/* UNDERNEATH LAYER: A personal note for the guests */}
-            <div className="absolute inset-0 bg-[#FDFBF7] flex flex-col items-center justify-center px-4 pt-8 pb-6 text-center">
+            <div className="absolute inset-0 bg-[#FFFCF8] flex flex-col items-center justify-center px-4 pt-8 pb-6 text-center">
               <div className="flex flex-col items-center justify-center max-w-[250px]">
                 {/* Decorative crown / sparkle */}
-                <div className="inline-flex items-center justify-center text-[#B58B35] mb-1">
-                  <Sparkles className="w-4 h-4 text-[#B58B35] animate-pulse" />
+                <div className="inline-flex items-center justify-center text-[#8A6D47] mb-1">
+                  <Sparkles className="w-4 h-4 text-[#8A6D47] animate-pulse" />
                 </div>
 
-                <span className="font-serif text-[10px] sm:text-[11px] tracking-[0.25em] text-[#8C7031] uppercase font-bold mb-1">
+                <span className="font-serif text-[10px] sm:text-[11px] tracking-[0.25em] text-[#8A6D47] uppercase font-bold mb-1">
                   A Note for You
                 </span>
 
-                <p className="font-display text-base sm:text-lg font-semibold leading-snug text-[#1E3025] mt-2">
+                <p className="font-display text-base sm:text-lg font-semibold leading-snug text-[#46343A] mt-2">
                   Your presence will make our wedding shine brighter.
                 </p>
               </div>
@@ -316,8 +316,8 @@ export function ScratchToReveal() {
         {/* Scratch Prompt / Action Buttons */}
         <div className="mt-6 flex flex-col items-center gap-2.5">
           {!isRevealed ? (
-            <div className="inline-flex items-center gap-2 text-xs font-serif text-[#445848] bg-white/85 backdrop-blur-xs px-4 py-1.5 rounded-full border border-[#586F5C]/30 shadow-xs">
-              <Hand className="w-3.5 h-3.5 text-[#586F5C] animate-bounce" />
+            <div className="inline-flex items-center gap-2 text-xs font-serif text-[#6B555C] bg-[#FFFDF9]/85 backdrop-blur-xs px-4 py-1.5 rounded-full border border-[#84927D]/30 shadow-xs">
+              <Hand className="w-3.5 h-3.5 text-[#84927D] animate-bounce" />
               <span>
                 {hasScratched
                   ? "Keep going to uncover our message!"
@@ -326,16 +326,16 @@ export function ScratchToReveal() {
             </div>
           ) : (
             <div className="flex flex-col items-center gap-2 animate-fade-in">
-              <div className="inline-flex items-center gap-2 text-xs font-serif font-bold text-[#1E3025] bg-[#E8DEC8] px-4 py-1.5 rounded-full border border-[#B58B35]/60 shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-[#B58B35]" />
+              <div className="inline-flex items-center gap-2 text-xs font-serif font-bold text-[#46343A] bg-[#F4E7DF] px-4 py-1.5 rounded-full border border-[#C6A46A]/60 shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-[#8A6D47]" />
                 <span>We can’t wait to celebrate with you!</span>
               </div>
               <button
                 type="button"
                 onClick={initCanvas}
-                className="mt-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white hover:bg-[#FBF7EE] text-[#1E3025] border border-[#B58B35] font-serif text-xs uppercase tracking-wider font-semibold shadow-xs transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                className="mt-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFFDF9] hover:bg-[#FBF7EE] text-[#46343A] border border-[#C6A46A] font-serif text-xs uppercase tracking-wider font-semibold shadow-xs transition-all hover:scale-105 active:scale-95 cursor-pointer"
               >
-                <RotateCcw className="w-3.5 h-3.5 text-[#B58B35]" />
+                <RotateCcw className="w-3.5 h-3.5 text-[#8A6D47]" />
                 <span>Scratch Again</span>
               </button>
             </div>

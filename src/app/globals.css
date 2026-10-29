@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-forest: #243a2d;
-  --color-forest-dark: #18281f;
-  --color-forest-deep: #101c15;
-  --color-forest-light: #2f4b3b;
-  --color-sage: #9da78b;
-  --color-sage-light: #b9c2a8;
-  --color-sage-subtle: #eef1ea;
-  --color-ivory: #f8f3e8;
-  --color-ivory-light: #fdfbf7;
-  --color-ivory-card: #fcf9f2;
-  --color-gold: #b58b35;
-  --color-gold-light: #d8b25e;
-  --color-gold-pale: #ebd69f;
-  --color-gold-dark: #82611e;
-  --color-blush: #d98ca2;
-  --color-blush-light: #faebf0;
-  --color-dark: #302e27;
-  --color-dark-muted: #5e5a4f;
+  --color-forest: #46343a;
+  --color-forest-dark: #60464e;
+  --color-forest-deep: #46343a;
+  --color-forest-light: #7e6870;
+  --color-sage: #a6b29a;
+  --color-sage-light: #c9d1c3;
+  --color-sage-subtle: #f1eeea;
+  --color-ivory: #fff9f3;
+  --color-ivory-light: #fffcf8;
+  --color-ivory-card: #fffdf9;
+  --color-gold: #c6a46a;
+  --color-gold-light: #d8bd8d;
+  --color-gold-pale: #efe4cb;
+  --color-gold-dark: #8a6d47;
+  --color-blush: #c98795;
+  --color-blush-light: #f4dde1;
+  --color-dark: #46343a;
+  --color-dark-muted: #75636a;
 
   --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
@@ -28,12 +28,53 @@
 }
 
 :root {
-  --bg-ivory: #f8f3e8;
-  --text-dark: #302e27;
-  --accent-gold: #b58b35;
-  --accent-forest: #243a2d;
-  --accent-sage: #9da78b;
-  --accent-blush: #d98ca2;
+  --bg-ivory: #fff9f3;
+  --text-dark: #46343a;
+  --accent-gold: #c6a46a;
+  --accent-forest: #46343a;
+  --accent-sage: #a6b29a;
+  --accent-blush: #c98795;
+}
+
+section,
+footer {
+  position: relative;
+  isolation: isolate;
+}
+
+section::before,
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    url("/images/botanical-corner.png"),
+    url("/images/botanical-corner.png");
+  background-repeat: no-repeat;
+  background-position: left -34px top -46px, right -34px bottom -46px;
+  background-size: clamp(116px, 20vw, 236px) auto;
+  opacity: 0.13;
+}
+
+#hero::before {
+  background-size: clamp(180px, 30vw, 360px) auto;
+  opacity: 0.2;
+}
+
+@media (max-width: 640px) {
+  section::before,
+  footer::before {
+    background-size: 132px auto;
+    background-position: left -26px top -32px, right -26px bottom -32px;
+    opacity: 0.1;
+  }
+
+  #hero::before {
+    background-size: 170px auto;
+    opacity: 0.16;
+  }
 }
 
 /* Islamic Arch & Card Shapes */
@@ -50,11 +91,11 @@
 .gold-shimmer {
   background: linear-gradient(
     110deg,
-    #b58b35 0%,
+    #c6a46a 0%,
     #e8d39c 25%,
-    #b58b35 50%,
+    #c6a46a 50%,
     #fdf5d6 75%,
-    #b58b35 100%
+    #c6a46a 100%
   );
   background-size: 200% 100%;
   -webkit-background-clip: text;
@@ -74,35 +115,64 @@
 .gold-border-gradient {
   border-image: linear-gradient(
     to bottom right,
-    #d8b25e,
-    #82611e,
+    #d8bd8d,
+    #8a6d47,
     #e8d39c,
-    #b58b35
+    #c6a46a
   ) 1;
 }
 
 /* Subtle Golden Glow */
 .glow-gold {
-  box-shadow: 0 0 25px -5px rgba(181, 139, 53, 0.25);
+  box-shadow: 0 10px 32px -15px rgba(198, 164, 106, 0.4), 0 0 28px -16px rgba(201, 135, 149, 0.45);
 }
 
 .glow-gold-lg {
-  box-shadow: 0 0 45px -8px rgba(181, 139, 53, 0.35);
+  box-shadow: 0 18px 48px -20px rgba(198, 164, 106, 0.4), 0 0 46px -22px rgba(201, 135, 149, 0.35);
 }
 
-/* Arabesque subtle background pattern */
+/* A fine repeating petal motif replaces the dotted arabesque texture. */
 .bg-arabesque-pattern {
-  background-color: #f8f3e8;
-  background-image: radial-gradient(rgba(181, 139, 53, 0.08) 1px, transparent 1px),
-    radial-gradient(rgba(36, 58, 45, 0.05) 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-position: 0 0, 16px 16px;
+  background-color: #fff9f3;
+  background-image:
+    radial-gradient(ellipse 7px 13px at 50% 30%, rgba(201, 135, 149, 0.11) 94%, transparent 100%),
+    radial-gradient(ellipse 7px 13px at 50% 70%, rgba(166, 178, 154, 0.12) 94%, transparent 100%),
+    radial-gradient(ellipse 13px 7px at 30% 50%, rgba(201, 135, 149, 0.08) 94%, transparent 100%),
+    radial-gradient(ellipse 13px 7px at 70% 50%, rgba(166, 178, 154, 0.09) 94%, transparent 100%),
+    radial-gradient(circle 2px at 50% 50%, rgba(198, 164, 106, 0.2) 94%, transparent 100%);
+  background-size: 92px 92px;
+  background-position: 0 0;
+}
+
+/* Quietly frame the invitation with a fine botanical edge. */
+#hero {
+  background-image:
+    radial-gradient(ellipse at 50% 42%, rgba(244, 221, 225, 0.68), transparent 52%),
+    radial-gradient(ellipse at 50% 100%, rgba(166, 178, 154, 0.16), transparent 42%);
+}
+
+#invitation > div > div {
+  box-shadow: 0 28px 80px -42px rgba(70, 52, 58, 0.32), 0 0 0 8px rgba(201, 135, 149, 0.055);
 }
 
 .bg-dark-ornate {
-  background-color: #17281f;
-  background-image: radial-gradient(rgba(216, 178, 94, 0.09) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-color: #f4dde1;
+  background-image:
+    radial-gradient(ellipse 6px 11px at 50% 30%, rgba(201, 135, 149, 0.1) 94%, transparent 100%),
+    radial-gradient(ellipse 6px 11px at 50% 70%, rgba(166, 178, 154, 0.1) 94%, transparent 100%),
+    radial-gradient(ellipse 11px 6px at 30% 50%, rgba(201, 135, 149, 0.08) 94%, transparent 100%),
+    radial-gradient(ellipse 11px 6px at 70% 50%, rgba(166, 178, 154, 0.08) 94%, transparent 100%);
+  background-size: 72px 72px;
+}
+
+.floral-intro-cover {
+  background-image:
+    linear-gradient(rgba(70, 52, 58, 0.56), rgba(70, 52, 58, 0.56)),
+    url("/images/botanical-corner.png"),
+    url("/images/botanical-corner.png");
+  background-repeat: no-repeat;
+  background-size: cover, clamp(140px, 24vw, 280px) auto, clamp(140px, 24vw, 280px) auto;
+  background-position: center, left top, right bottom;
 }
 
 
@@ -200,14 +270,14 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f8f3e8;
+  background: #fff9f3;
 }
 ::-webkit-scrollbar-thumb {
-  background: #b58b35;
+  background: #c6a46a;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #82611e;
+  background: #8a6d47;
 }
 
 /* Reduced motion accessibility */

@@ -43,7 +43,7 @@ export function HeroVideoIntro({
         particleCount: 90,
         spread: 100,
         origin: { y: 0.6 },
-        colors: ["#B58B35", "#D8B25E", "#D98CA2", "#F8F3E8", "#243A2D"],
+        colors: ["#C6A46A", "#D8BD8D", "#C98795", "#FFF9F3", "#46343A"],
         disableForReducedMotion: true,
       });
     } catch {
@@ -80,6 +80,30 @@ export function HeroVideoIntro({
       if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
     };
   }, []);
+
+  // Keep touch and wheel gestures on the full-screen intro from moving the page beneath it.
+  useEffect(() => {
+    if (!isActive) return;
+
+    const html = document.documentElement;
+    const body = document.body;
+    const previousHtmlOverflow = html.style.overflow;
+    const previousBodyOverflow = body.style.overflow;
+    const previousHtmlOverscroll = html.style.overscrollBehavior;
+    const previousBodyOverscroll = body.style.overscrollBehavior;
+
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    html.style.overscrollBehavior = "none";
+    body.style.overscrollBehavior = "none";
+
+    return () => {
+      html.style.overflow = previousHtmlOverflow;
+      body.style.overflow = previousBodyOverflow;
+      html.style.overscrollBehavior = previousHtmlOverscroll;
+      body.style.overscrollBehavior = previousBodyOverscroll;
+    };
+  }, [isActive]);
 
   // Start playing on user tap/click anywhere
   const startPlayback = () => {
@@ -159,7 +183,7 @@ export function HeroVideoIntro({
       aria-label="Full Screen Wedding Video Presentation"
       onClick={handleScreenClick}
       onMouseMove={handleMouseMove}
-      className={`fixed inset-0 z-50 w-full h-[100dvh] bg-black overflow-hidden select-none cursor-pointer transition-opacity duration-1000 ${
+      className={`fixed inset-0 z-50 w-full h-[100dvh] bg-[#46343A] overflow-hidden overscroll-none touch-none select-none cursor-pointer transition-opacity duration-1000 ${
         isFadingOut ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
@@ -190,23 +214,23 @@ export function HeroVideoIntro({
 
       {/* BEFORE PLAYING: Royal 'Tap Anywhere to Play' Experience */}
       {!hasStartedPlaying && (
-        <div className="absolute inset-0 z-30 flex flex-col items-center justify-between p-6 sm:p-8 bg-black/50 backdrop-blur-xs transition-opacity duration-500">
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-between p-6 sm:p-8 floral-intro-cover backdrop-blur-xs transition-opacity duration-500">
           {/* Top skip option */}
           <div className="w-full flex justify-end">
             <button
               type="button"
               onClick={handleSkip}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-[#E5C365] border border-[#B58B35]/50 text-[11px] sm:text-xs font-serif uppercase tracking-widest transition-all hover:scale-105 active:scale-95"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#46343A]/75 hover:bg-[#60464E]/90 backdrop-blur-md text-[#FFF9F3] border border-[#D6BC8D]/60 text-[11px] sm:text-xs font-serif uppercase tracking-widest transition-all hover:scale-105 active:scale-95"
             >
               <span>Skip to Suite</span>
-              <ArrowRight className="w-3 h-3 text-[#E5C365]" />
+              <ArrowRight className="w-3 h-3 text-[#D6BC8D]" />
             </button>
           </div>
 
           {/* Central Royal Medallion & Call to Action */}
           <div className="flex flex-col items-center text-center max-w-sm sm:max-w-md mx-auto my-auto animate-fade-in">
             {/* Bismillah in Arabic Calligraphy */}
-            <p className="font-arabic text-[#E5C365] text-lg sm:text-2xl leading-relaxed mb-1" dir="rtl">
+            <p className="font-arabic text-[#D6BC8D] text-lg sm:text-2xl leading-relaxed mb-1" dir="rtl">
               {weddingData.bismillahArabic}
             </p>
 
@@ -214,22 +238,22 @@ export function HeroVideoIntro({
             <h1 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight drop-shadow-md">
               {weddingData.bride.shortName} &amp; {weddingData.groom.shortName}
             </h1>
-            <p className="font-serif text-xs uppercase tracking-widest text-[#E5C365] mt-1 mb-6">
+            <p className="font-serif text-xs uppercase tracking-widest text-[#D6BC8D] mt-1 mb-6">
               Wedding Invitation
             </p>
 
             {/* Pulsing Gold Play Button */}
             <div className="relative group my-2">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-r from-[#B58B35] via-[#E5C365] to-[#B58B35] text-[#18281F] flex items-center justify-center shadow-2xl glow-gold animate-bounce transition-transform group-hover:scale-110 active:scale-95">
-                <Play className="w-9 h-9 sm:w-10 sm:h-10 fill-[#18281F] text-[#18281F] ml-1.5" />
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#C6A46A] via-[#F4DDE1] to-[#C98795] text-[#46343A] flex items-center justify-center shadow-2xl glow-gold animate-gentle-pulse transition-transform group-hover:scale-110 active:scale-95">
+                <Play className="w-9 h-9 sm:w-10 sm:h-10 fill-[#46343A] text-[#46343A] ml-1.5" />
               </div>
             </div>
 
             {/* Tap Prompt with Sparkles */}
-            <div className="mt-5 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#18281F]/80 border border-[#B58B35]/60 text-[#E5C365] text-xs sm:text-sm font-serif uppercase tracking-wider shadow-lg animate-pulse">
-              <Sparkles className="w-3.5 h-3.5 text-[#E5C365]" />
+            <div className="mt-5 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#46343A]/80 border border-[#D6BC8D]/60 text-[#FFF9F3] text-xs sm:text-sm font-serif uppercase tracking-wider shadow-lg animate-pulse">
+              <Sparkles className="w-3.5 h-3.5 text-[#D6BC8D]" />
               <span className="font-semibold">Tap anywhere to play</span>
-              <Sparkles className="w-3.5 h-3.5 text-[#E5C365]" />
+              <Sparkles className="w-3.5 h-3.5 text-[#D6BC8D]" />
             </div>
           </div>
 
@@ -254,10 +278,10 @@ export function HeroVideoIntro({
             <button
               type="button"
               onClick={handleSkip}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-[#E5C365] border border-[#B58B35]/60 shadow-xl text-xs sm:text-sm font-serif font-bold uppercase tracking-widest transition-all hover:scale-105 active:scale-95"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#46343A]/75 hover:bg-[#60464E]/90 backdrop-blur-md text-[#FFF9F3] border border-[#D6BC8D]/60 shadow-xl text-xs sm:text-sm font-serif font-bold uppercase tracking-widest transition-all hover:scale-105 active:scale-95"
             >
               <span>Enter Suite</span>
-              <ArrowRight className="w-3.5 h-3.5 text-[#E5C365]" />
+              <ArrowRight className="w-3.5 h-3.5 text-[#D6BC8D]" />
             </button>
           </div>
 
@@ -267,13 +291,13 @@ export function HeroVideoIntro({
               showControls ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           >
-            <div className="flex items-center gap-2 bg-black/65 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-xl">
+            <div className="flex items-center gap-2 bg-[#46343A]/75 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-xl">
               {/* Sound Toggle */}
               <button
                 type="button"
                 onClick={toggleMute}
                 aria-label={isMusicPlaying ? "Mute music" : "Play music"}
-                className="p-1 rounded-full hover:bg-white/10 text-[#E5C365] transition-colors cursor-pointer"
+                className="p-1 rounded-full hover:bg-[#FFFDF9]/10 text-[#D6BC8D] transition-colors cursor-pointer"
               >
                 {!isMusicPlaying ? (
                   <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-red-400" />
@@ -285,9 +309,9 @@ export function HeroVideoIntro({
           </div>
 
           {/* Slim Progress Line at bottom */}
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 z-30">
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#FFFDF9]/20 z-30">
             <div
-              className="h-full bg-gradient-to-r from-[#B58B35] to-[#E5C365] transition-all duration-100"
+              className="h-full bg-gradient-to-r from-[#C6A46A] to-[#D6BC8D] transition-all duration-100"
               style={{ width: `${progressPercent}%` }}
             />
           </div>

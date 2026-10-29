@@ -100,32 +100,33 @@ export interface WeddingData {
     businessName: string;
     phoneDisplay: string;
     phoneHref: string;
+    whatsappHref: string;
   };
 }
 
 const brideDetails = {
-  fullName: "Sania Raza",
-  shortName: "Sania",
+  fullName: "Laila Siddiqui",
+  shortName: "Laila",
 };
 const groomDetails = {
-  fullName: "Aftab Alam",
-  shortName: "Aftab",
+  fullName: "Yusuf Rahman",
+  shortName: "Yusuf",
 };
 const familyDetails = {
-  brideFather: "Md Aslam Ansari",
-  brideMother: "Shabana Khatoon",
-  groomFather: "Md Salim Ansari",
+  brideFather: "Imran Siddiqui",
+  brideMother: "Farah Siddiqui",
+  groomFather: "Khalid Rahman",
 };
-const residenceAddress = "Road No. 13, Zakirnagar, Mango, Jamshedpur, Jharkhand";
-const venueName = "Grand Markaz Banquet Hall";
-const venueAddress = "2, Old Purulia Road, Zakir Nagar, Mango";
-const venueCity = "Jamshedpur";
-const venueState = "Jharkhand";
-const venueCountry = "India";
+const residenceAddress = "42 Jasmine Street, Gulberg, Lahore";
+const venueName = "Noor Garden Banquet";
+const venueAddress = "18 Crescent Avenue, Gulberg";
+const venueCity = "Lahore";
+const venueState = "Punjab";
+const venueCountry = "Pakistan";
 const venueMapUrl =
-  "https://www.google.com/maps/search/?api=1&query=Grand+Markaz+Banquet+Hall%2C+Mango%2C+Jamshedpur";
+  "https://www.google.com/maps/search/?api=1&query=Noor+Garden+Banquet%2C+Gulberg%2C+Lahore";
 const venueMapEmbedUrl =
-  "https://www.google.com/maps?q=Grand%20Markaz%20Banquet%20Hall%2C%202%20Old%20Purulia%20Road%2C%20Zakir%20Nagar%2C%20Mango%2C%20Jamshedpur%2C%20Jharkhand%20831012&output=embed";
+  "https://www.google.com/maps?q=Noor%20Garden%20Banquet%2C%2018%20Crescent%20Avenue%2C%20Gulberg%2C%20Lahore%2C%20Pakistan&output=embed";
 
 // Main client configuration: edit names, artwork, media, location, and dates here.
 export const weddingData: WeddingData = {
@@ -136,16 +137,16 @@ export const weddingData: WeddingData = {
   groom: groomDetails,
   monogram: `${brideDetails.shortName[0]} & ${groomDetails.shortName[0]}`,
   assets: {
-    heroImageSrc: "/images/sania-aftab-hero.png",
+    heroImageSrc: "/images/laila-yusuf-hero.png",
     introVideoSrc: "/images/gemini_generated_video_03cf4159.mp4",
     backgroundMusicSrc: "/audio/wedding-bg-music.mp3",
   },
   seo: {
-    description: `Join ${brideDetails.fullName} with ${groomDetails.fullName} for wedding celebrations on 06, 07, and 08 December 2026 in ${venueCity}, ${venueState}.`,
+    description: `Join ${brideDetails.fullName} and ${groomDetails.fullName} for wedding celebrations on 12, 13, and 14 February 2027 in ${venueCity}, ${venueState}.`,
   },
-  dateSummary: "08 December 2026",
-  locationSummary: "Jamshedpur, Jharkhand, India",
-  timezoneLabel: "Indian Standard Time (IST)",
+  dateSummary: "14 February 2027",
+  locationSummary: "Lahore, Punjab, Pakistan",
+  timezoneLabel: "Pakistan Standard Time (PKT)",
   mainInvitationMessage: {
     heading: "Wedding Invitation",
     invitationBy: `Mr. ${familyDetails.brideFather} & Mrs. ${familyDetails.brideMother}`,
@@ -159,10 +160,10 @@ export const weddingData: WeddingData = {
       id: "haldi",
       name: "Haldi Ceremony",
       subTitle: "A joyful beginning to the celebrations",
-      date: "Sunday, 06 December 2026",
-      dateISO: "2026-12-06",
+      date: "Friday, 12 February 2027",
+      dateISO: "2027-02-12",
       time: "4:00 PM",
-      timeISO: "2026-12-06T16:00:00+05:30",
+      timeISO: "2027-02-12T16:00:00+05:00",
       venue: "Our Residence",
       address: residenceAddress,
       badge: "Haldi",
@@ -171,10 +172,10 @@ export const weddingData: WeddingData = {
       id: "mehndi",
       name: "Mehndi Ceremony",
       subTitle: "An evening of color and celebration",
-      date: "Monday, 07 December 2026",
-      dateISO: "2026-12-07",
+      date: "Saturday, 13 February 2027",
+      dateISO: "2027-02-13",
       time: "7:00 PM",
-      timeISO: "2026-12-07T19:00:00+05:30",
+      timeISO: "2027-02-13T19:00:00+05:00",
       venue: "Our Residence",
       address: residenceAddress,
       badge: "Mehndi",
@@ -183,10 +184,10 @@ export const weddingData: WeddingData = {
       id: "nikah",
       name: "Mehfil-e-Nikah",
       subTitle: "The Sacred Marriage Ceremony",
-      date: "Tuesday, 08 December 2026",
-      dateISO: "2026-12-08",
+      date: "Sunday, 14 February 2027",
+      dateISO: "2027-02-14",
       time: "12:30 PM",
-      timeISO: "2026-12-08T12:30:00+05:30",
+      timeISO: "2027-02-14T12:30:00+05:00",
       venue: venueName,
       address: venueAddress,
       city: venueCity,
@@ -200,10 +201,10 @@ export const weddingData: WeddingData = {
       id: "dinner",
       name: "Dinner",
       subTitle: "Dinner following the Nikah celebration",
-      date: "Tuesday, 08 December 2026",
-      dateISO: "2026-12-08",
+      date: "Sunday, 14 February 2027",
+      dateISO: "2027-02-14",
       time: "8:00 PM",
-      timeISO: "2026-12-08T20:00:00+05:30",
+      timeISO: "2027-02-14T20:00:00+05:00",
       venue: venueName,
       address: venueAddress,
       city: venueCity,
@@ -220,7 +221,7 @@ export const weddingData: WeddingData = {
       candidateName: brideDetails.fullName,
       relationshipTitle: `Daughter of ${familyDetails.brideFather}`,
       fatherInfo: `Daughter of ${familyDetails.brideFather} (${venueCity})`,
-      additionalInfo: "Grand youngest daughter of the family",
+      additionalInfo: "Beloved daughter of the family",
       issuedBy: `Invitation extended by ${familyDetails.brideFather} & family.`,
     },
     groom: {
@@ -228,8 +229,8 @@ export const weddingData: WeddingData = {
       title: "Groom's Family",
       candidateName: groomDetails.fullName,
       relationshipTitle: `Son of ${familyDetails.groomFather}`,
-      fatherInfo: `T.O.P., ${venueCity}, ${venueState}`,
-      additionalInfo: `T.O.P., ${venueCity}, ${venueState}`,
+      fatherInfo: `${venueCity}, ${venueState}`,
+      additionalInfo: `${venueCity}, ${venueState}`,
     },
   },
   closing: {
@@ -259,24 +260,25 @@ export const weddingData: WeddingData = {
     businessName: "HR softwaresSolutions",
     phoneDisplay: "6207003180",
     phoneHref: "tel:+916207003180",
+    whatsappHref: "https://wa.me/916207003180",
   },
 };
 
 export const galleryItems: GalleryItem[] = [
   {
     id: "venue-exterior",
-    title: `${venueName} by Night`,
-    caption: `The illuminated exterior entrance of ${venueName}.`,
-    src: "https://content.jdmagicbox.com/comp/jamshedpur/v1/0657px657.x657.191207071503.t6v1/catalogue/grand-markaz-banquet-jamshedpur-0yjgk6nfx9.jpg",
-    alt: `Illuminated ${venueName} exterior in ${venueCity}`,
+    title: "A Night of Celebration",
+    caption: "A floral welcome for a joyful celebration.",
+    src: "/images/laila-yusuf-hero.png",
+    alt: "Floral Muslim wedding invitation artwork",
     tag: "Venue",
   },
   {
     id: "venue-aisle",
-    title: "Wedding Aisle",
-    caption: `A decorated aisle inside ${venueName}.`,
-    src: "https://content.jdmagicbox.com/comp/jamshedpur/v1/0657px657.x657.191207071503.t6v1/catalogue/grand-markaz-banquet-mango-jamshedpur-banquet-halls-ut5zpy22k1.jpg",
-    alt: `Wedding aisle with decorated arches at ${venueName}`,
+    title: "A Blessed Beginning",
+    caption: "A keepsake from a beautiful beginning together.",
+    src: "/images/laila-yusuf-hero.png",
+    alt: "Illustrated Muslim bride and groom with floral details",
     tag: "Venue",
   },
 ];

@@ -69,7 +69,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#243A2D",
+  themeColor: "#46343A",
   width: "device-width",
   initialScale: 1,
 };
@@ -81,7 +81,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${playfair.variable} ${greatVibes.variable} ${amiri.variable} ${jakarta.variable} scroll-smooth`}>
-      <body className="min-h-screen bg-[#F8F3E8] text-[#302E27] font-sans antialiased selection:bg-[#B58B35]/20 selection:text-[#243A2D] overflow-x-hidden">
+      <body className="min-h-screen bg-[#FFF9F3] text-[#46343A] font-sans antialiased selection:bg-[#C6A46A]/20 selection:text-[#46343A] overflow-x-hidden">
         {children}
       </body>
     </html>

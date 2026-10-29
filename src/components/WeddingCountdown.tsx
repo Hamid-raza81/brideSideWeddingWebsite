@@ -64,22 +64,22 @@ export function WeddingCountdown() {
   ];
 
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6 bg-[#18281F] text-[#F8F3E8] relative overflow-hidden">
+    <section className="py-16 sm:py-20 px-4 sm:px-6 bg-[#F4DDE1] text-[#46343A] relative overflow-hidden">
       {/* Background radial gold glow */}
-      <div className="absolute inset-0 bg-dark-ornate opacity-60 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#B58B35]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-arabesque-pattern opacity-55 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#C6A46A]/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 max-w-4xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B58B35]/20 border border-[#B58B35]/40 text-[#E5C365] text-xs font-serif uppercase tracking-widest mb-4">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFF9F3]/80 border border-[#C6A46A]/45 text-[#8A6D47] text-xs font-serif uppercase tracking-widest mb-4">
           <Clock className="w-3.5 h-3.5" />
           <span>Countdown to the {nikahEvent?.name ?? "Nikah"}</span>
         </div>
 
-        <h2 className="font-display text-2xl sm:text-4xl text-[#F8F3E8] font-bold tracking-tight mb-2">
+        <h2 className="font-display text-2xl sm:text-4xl text-[#46343A] font-bold tracking-tight mb-2">
           Waiting for the Blessed Moment
         </h2>
 
-        <p className="font-serif italic text-sm sm:text-base text-[#9DA78B] max-w-lg mx-auto mb-6">
+        <p className="font-serif italic text-sm sm:text-base text-[#75636A] max-w-lg mx-auto mb-6">
           {nikahEvent
             ? `${nikahEvent.name} begins on ${nikahEvent.date} at ${nikahEvent.time}`
             : weddingData.dateSummary}
@@ -88,12 +88,12 @@ export function WeddingCountdown() {
         <OrnamentalDivider variant="gold" symbol="star" className="my-4" />
 
         {timeLeft?.isExpired ? (
-          <div className="my-8 p-6 sm:p-8 rounded-2xl bg-[#243A2D] border border-[#B58B35] max-w-lg mx-auto shadow-xl">
-            <Heart className="w-8 h-8 text-[#E5C365] mx-auto mb-3 animate-pulse" />
-            <h3 className="font-display text-xl sm:text-2xl text-[#E5C365] font-semibold mb-2">
+          <div className="my-8 p-6 sm:p-8 rounded-2xl bg-[#FFFDF9] border border-[#C6A46A]/50 max-w-lg mx-auto shadow-xl">
+            <Heart className="w-8 h-8 text-[#C98795] mx-auto mb-3 animate-pulse" />
+            <h3 className="font-display text-xl sm:text-2xl text-[#46343A] font-semibold mb-2">
               The Celebrations Have Commenced!
             </h3>
-            <p className="font-serif text-sm sm:text-base text-[#F8F3E8]/90">
+            <p className="font-serif text-sm sm:text-base text-[#75636A]">
               Alhamdulillah, the auspicious union is underway. May Allah shower
               His eternal blessings, love, and barakah upon the couple.
             </p>
@@ -103,15 +103,15 @@ export function WeddingCountdown() {
             {timeUnits.map((unit) => (
               <div
                 key={unit.label}
-                className="relative rounded-2xl bg-[#243A2D]/80 border border-[#B58B35]/40 p-4 sm:p-6 shadow-xl backdrop-blur-sm group hover:border-[#E5C365] transition-colors"
+                className="relative rounded-2xl bg-[#FFFDF9]/90 border border-[#C6A46A]/45 p-4 sm:p-6 shadow-lg backdrop-blur-sm group hover:border-[#C98795] transition-colors"
               >
                 {/* Gold corner ornaments */}
-                <div className="absolute top-1.5 left-1.5 w-2.5 h-2.5 border-t border-l border-[#B58B35]/60" />
-                <div className="absolute top-1.5 right-1.5 w-2.5 h-2.5 border-t border-r border-[#B58B35]/60" />
-                <div className="absolute bottom-1.5 left-1.5 w-2.5 h-2.5 border-b border-l border-[#B58B35]/60" />
-                <div className="absolute bottom-1.5 right-1.5 w-2.5 h-2.5 border-b border-r border-[#B58B35]/60" />
+                <div className="absolute top-1.5 left-1.5 w-2.5 h-2.5 border-t border-l border-[#C6A46A]/60" />
+                <div className="absolute top-1.5 right-1.5 w-2.5 h-2.5 border-t border-r border-[#C6A46A]/60" />
+                <div className="absolute bottom-1.5 left-1.5 w-2.5 h-2.5 border-b border-l border-[#C6A46A]/60" />
+                <div className="absolute bottom-1.5 right-1.5 w-2.5 h-2.5 border-b border-r border-[#C6A46A]/60" />
 
-                <div className="font-display text-3xl sm:text-5xl font-bold text-[#E5C365] tracking-tight min-h-[44px] flex items-center justify-center">
+                <div className="font-display text-3xl sm:text-5xl font-bold text-[#C98795] tracking-tight min-h-[44px] flex items-center justify-center">
                   {timeLeft === null ? (
                     <span className="opacity-40">--</span>
                   ) : (
@@ -119,7 +119,7 @@ export function WeddingCountdown() {
                   )}
                 </div>
 
-                <div className="font-serif text-[11px] sm:text-xs uppercase tracking-widest text-[#9DA78B] mt-2 font-semibold">
+                <div className="font-serif text-[11px] sm:text-xs uppercase tracking-widest text-[#75636A] mt-2 font-semibold">
                   {unit.label}
                 </div>
               </div>
@@ -127,7 +127,7 @@ export function WeddingCountdown() {
           </div>
         )}
 
-        <p className="font-serif text-xs text-[#9DA78B] tracking-wider uppercase mt-4">
+        <p className="font-serif text-xs text-[#75636A] tracking-wider uppercase mt-4">
           Timezone: {weddingData.timezoneLabel} · {weddingData.locationSummary}
         </p>
       </div>

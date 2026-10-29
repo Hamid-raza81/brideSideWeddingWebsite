@@ -12,15 +12,15 @@ export function OrnamentalDivider({
   symbol = "floral",
 }: OrnamentalDividerProps) {
   const colorMap = {
-    gold: "text-[#B58B35]",
-    sage: "text-[#9DA78B]",
-    forest: "text-[#243A2D]",
+    gold: "text-[#8A6D47]",
+    sage: "text-[#A6B29A]",
+    forest: "text-[#46343A]",
   };
 
   const strokeMap = {
-    gold: "#B58B35",
-    sage: "#9DA78B",
-    forest: "#243A2D",
+    gold: "#C6A46A",
+    sage: "#A6B29A",
+    forest: "#46343A",
   };
 
   const strokeColor = strokeMap[variant];

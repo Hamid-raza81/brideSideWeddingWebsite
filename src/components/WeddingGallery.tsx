@@ -58,17 +58,17 @@ export function WeddingGallery() {
     selectedItemIndex !== null ? galleryItems[selectedItemIndex] : null;
 
   return (
-    <section id="gallery" className="py-16 sm:py-24 lg:py-28 px-4 sm:px-6 bg-[#FCF9F2] relative">
+    <section id="gallery" className="py-16 sm:py-24 lg:py-28 px-4 sm:px-6 bg-[#FFFDF9] relative">
       <div className="max-w-6xl mx-auto">
         {/* Section Heading */}
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
-          <span className="font-serif uppercase tracking-[0.2em] text-[#B58B35] text-xs sm:text-sm font-semibold">
+          <span className="font-serif uppercase tracking-[0.2em] text-[#8A6D47] text-xs sm:text-sm font-semibold">
             Visual Keepsakes
           </span>
-          <h2 className="font-display text-3xl sm:text-5xl text-[#243A2D] font-bold tracking-tight mt-2 mb-3">
+          <h2 className="font-display text-3xl sm:text-5xl text-[#46343A] font-bold tracking-tight mt-2 mb-3">
             {weddingData.gallery.heading}
           </h2>
-          <p className="font-serif italic text-sm sm:text-base text-[#5E5A4F]">
+          <p className="font-serif italic text-sm sm:text-base text-[#75636A]">
             {weddingData.gallery.description}
           </p>
           <OrnamentalDivider variant="gold" symbol="diamond" className="mt-4" />
@@ -83,11 +83,11 @@ export function WeddingGallery() {
                 key={item.id}
                 onClick={(event) => handleOpenLightbox(index, event.currentTarget)}
                 aria-label={`View ${item.title} in full size`}
-                className="group relative rounded-3xl bg-white border-2 border-[#B58B35]/30 shadow-lg overflow-hidden cursor-pointer flex flex-col justify-between hover:border-[#B58B35] hover:shadow-2xl transition-all duration-300"
+                className="group relative rounded-3xl bg-[#FFFDF9] border-2 border-[#C6A46A]/30 shadow-lg overflow-hidden cursor-pointer flex flex-col justify-between hover:border-[#C6A46A] hover:shadow-2xl transition-all duration-300"
               >
                 {/* Image Container */}
                 <div
-                  className="relative w-full aspect-[4/3] sm:aspect-[3/2] overflow-hidden bg-[#F8F3E8] flex items-center justify-center"
+                  className="relative w-full aspect-[4/3] sm:aspect-[3/2] overflow-hidden bg-[#FFF9F3] flex items-center justify-center"
                 >
                   <Image
                     src={item.src}
@@ -99,8 +99,8 @@ export function WeddingGallery() {
                   />
 
                   {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-[#243A2D]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-white">
-                    <div className="w-10 h-10 rounded-full bg-[#B58B35] flex items-center justify-center shadow-lg">
+                  <div className="absolute inset-0 bg-[#46343A]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-white">
+                    <div className="w-10 h-10 rounded-full bg-[#C6A46A] flex items-center justify-center shadow-lg">
                       <ZoomIn className="w-5 h-5 text-white" />
                     </div>
                     <span className="font-serif text-xs uppercase tracking-wider font-semibold">
@@ -109,23 +109,23 @@ export function WeddingGallery() {
                   </div>
 
                   {/* Badge */}
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#243A2D]/85 backdrop-blur-sm text-[#E5C365] border border-[#B58B35]/50 text-[11px] font-serif uppercase tracking-wider font-semibold">
+                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#46343A]/85 backdrop-blur-sm text-[#D6BC8D] border border-[#C6A46A]/50 text-[11px] font-serif uppercase tracking-wider font-semibold">
                     {item.tag}
                   </div>
                 </div>
 
                 {/* Caption & Title */}
-                <div className="p-5 sm:p-6 bg-white border-t border-[#B58B35]/20 flex-1 flex flex-col justify-between">
+                <div className="p-5 sm:p-6 bg-[#FFFDF9] border-t border-[#C6A46A]/20 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="font-display text-lg sm:text-xl font-bold text-[#243A2D] mb-1">
+                    <h3 className="font-display text-lg sm:text-xl font-bold text-[#46343A] mb-1">
                       {item.title}
                     </h3>
-                    <p className="font-serif text-xs sm:text-sm text-[#5E5A4F] leading-relaxed">
+                    <p className="font-serif text-xs sm:text-sm text-[#75636A] leading-relaxed">
                       {item.caption}
                     </p>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-dashed border-[#B58B35]/20 flex items-center justify-between text-xs text-[#B58B35] font-serif">
+                  <div className="mt-4 pt-3 border-t border-dashed border-[#C6A46A]/20 flex items-center justify-between text-xs text-[#8A6D47] font-serif">
                     <span className="font-semibold uppercase tracking-wider">
                       Tap to enlarge
                     </span>
@@ -144,7 +144,7 @@ export function WeddingGallery() {
           role="dialog"
           aria-modal="true"
           aria-label={activeItem.title}
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-fade-in"
+          className="fixed inset-0 z-50 bg-[#46343A]/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-fade-in"
           onClick={handleCloseLightbox}
         >
           {/* Close button */}
@@ -153,7 +153,7 @@ export function WeddingGallery() {
             type="button"
             onClick={handleCloseLightbox}
             aria-label="Close Lightbox"
-            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 p-2.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#B58B35]"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 p-2.5 rounded-full bg-[#FFFDF9]/20 hover:bg-[#FFFDF9]/30 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#C6A46A]"
           >
             <X className="w-6 h-6" />
           </button>
@@ -166,7 +166,7 @@ export function WeddingGallery() {
               handlePrev();
             }}
             aria-label="Previous image"
-            className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-50 p-2 sm:p-3 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#B58B35]"
+            className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-50 p-2 sm:p-3 rounded-full bg-[#FFFDF9]/20 hover:bg-[#FFFDF9]/30 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#C6A46A]"
           >
             <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8" />
           </button>
@@ -179,7 +179,7 @@ export function WeddingGallery() {
               handleNext();
             }}
             aria-label="Next image"
-            className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-50 p-2 sm:p-3 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#B58B35]"
+            className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-50 p-2 sm:p-3 rounded-full bg-[#FFFDF9]/20 hover:bg-[#FFFDF9]/30 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#C6A46A]"
           >
             <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8" />
           </button>
@@ -202,13 +202,13 @@ export function WeddingGallery() {
 
             {/* Info bar */}
             <div className="mt-4 text-center max-w-xl text-white px-4">
-              <h4 className="font-display text-lg sm:text-xl font-bold text-[#E5C365]">
+              <h4 className="font-display text-lg sm:text-xl font-bold text-[#D6BC8D]">
                 {activeItem.title}
               </h4>
               <p className="font-serif text-xs sm:text-sm text-gray-300 mt-1">
                 {activeItem.caption}
               </p>
-              <p className="text-[11px] font-serif text-[#9DA78B] mt-2 uppercase tracking-widest">
+              <p className="text-[11px] font-serif text-[#A6B29A] mt-2 uppercase tracking-widest">
                 Image {selectedItemIndex! + 1} of {galleryItems.length} · Press Esc to close
               </p>
             </div>

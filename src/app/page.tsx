@@ -59,6 +59,7 @@ export default function WeddingPage() {
   };
 
   const handleVideoComplete = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     setIsVideoActive(false);
     // Song continues seamlessly into the page!
   };
@@ -68,7 +69,7 @@ export default function WeddingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#F8F3E8] relative selection:bg-[#B58B35]/20 selection:text-[#243A2D]">
+    <main className="min-h-screen bg-[#FFF9F3] relative selection:bg-[#C6A46A]/20 selection:text-[#46343A]">
       {/* Background Wedding Music Audio Element — Plays seamlessly throughout */}
       <audio
         ref={audioRef}
